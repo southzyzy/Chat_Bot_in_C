@@ -83,10 +83,13 @@ int knowledge_read(FILE *f) {
 /*
  * Reset the knowledge base, removing all know entitities from all intents.
  */
-void knowledge_reset() {
+void knowledge_reset(int inc, char *inv[]) {
 	
 	/* to be implemented */
-	
+	while (inv[inc] != NULL) {
+		inv[inc] = NULL;
+		inc++;
+	}
 }
 
 

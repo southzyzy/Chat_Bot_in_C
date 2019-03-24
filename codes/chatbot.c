@@ -268,7 +268,10 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
 int chatbot_is_reset(const char *intent) {
 	
 	/* to be implemented */
-	
+	if (strcmp(intent, "reset") == 0)
+	{
+		return 1;
+	}
 	return 0;
 	
 }
@@ -286,7 +289,9 @@ int chatbot_is_reset(const char *intent) {
 int chatbot_do_reset(int inc, char *inv[], char *response, int n) {
 	
 	/* to be implemented */
-	 
+	knowledge_reset(inc, inv);
+	snprintf(response, n, "Chatbot reset.");
+	
 	return 0;
 	 
 }
@@ -299,13 +304,16 @@ int chatbot_do_reset(int inc, char *inv[], char *response, int n) {
  *  intent - the intent
  *
  * Returns:
- *  1, if the intent is "what", "where", or "who"
+ *  1, if the intent is "save"
  *  0, otherwise
  */
 int chatbot_is_save(const char *intent) {
 	
 	/* to be implemented */
-	
+	if (strcmp(intent, "save") == 0)
+	{
+		return 1;
+	}
 	return 0;
 	
 }
@@ -323,9 +331,10 @@ int chatbot_is_save(const char *intent) {
 int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 	
 	/* to be implemented */
-	
+	knowledge_write(to_save_file);
+	snprintf(response, n, "Chatbot saved.");
+	fclose(to_save_file);
 	return 0;
-	 
 }
  
  
