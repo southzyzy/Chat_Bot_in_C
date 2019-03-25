@@ -22,7 +22,7 @@ int main() {
     Table *t = createTable(5);
     insert(t, 1, "Hello");
     insert(t, 2, "World");
-    printf("%s\n", lookup(t, 1));
+    printf("%s\n", lookup(t, 3));
     return 0;
 }
 
@@ -72,5 +72,5 @@ char *lookup(Table *t, int key) {
         }
         temp = temp->next;
     }
-    return "Cannot Find";
+    return "Key does not exist !";
 }
