@@ -205,7 +205,7 @@ int chatbot_do_load(int inc, char *inv[], char *response, int n) {
  */
 int chatbot_is_question(const char *intent) {
     // not done
-    char *question_key_words[] = {"What", "Where", "Who"};
+    char *question_key_words[] = {"what", "where", "who"};
 
     for (int i = 0; i < 3; i++) {
         if (strcmp(intent, question_key_words[i]) == 0) {
@@ -231,7 +231,7 @@ int chatbot_is_question(const char *intent) {
  */
 int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be implemented 
 {
-    char *question_key_words[] = {"What", "Where", "Who"};
+    char *question_key_words[] = {"what", "where", "who"};
 
     if (strcmp(inv[0], question_key_words[0]) == 0) {
         snprintf(response, n, "I don't know.");
@@ -336,9 +336,9 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
  */
 int chatbot_is_smalltalk(const char *intent) {
 
-    char *small_talk_key_words[] = {"hello", "it's"};
+    char *small_talk_key_words[] = {"hello", "it's", "it"};
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         if (strcmp(intent, small_talk_key_words[i]) == 0) {
             return 1;
         }
@@ -358,15 +358,15 @@ int chatbot_is_smalltalk(const char *intent) {
  *   1, if the chatbot should stop chatting (e.g. the smalltalk was "goodbye" etc.)
  */
 int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
-    char *small_talk_key_words[] = {"hello", "it's"};
+    char *small_talk_key_words[] = {"hello", "it's", "it"};
 
     // Chat Bot's response to "Hello" or "hello"
     if (strcmp(inv[0], small_talk_key_words[0]) == 0) {
         snprintf(response, n, "Hello");
     }
 
-        // Chat Bot's response to "It's"
-    else if (strcmp(inv[0], small_talk_key_words[1]) == 0) {
+        // Chat Bot's response to "It's" or it
+    else if (strcmp(inv[0], small_talk_key_words[1]) == 0 || strcmp(inv[0], small_talk_key_words[2]) == 0) {
         snprintf(response, n, "Indeed it is.");
     } else {
         snprintf(response, n, "Goodbye.");
