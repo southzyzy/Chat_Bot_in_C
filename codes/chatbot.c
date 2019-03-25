@@ -63,7 +63,6 @@ const char *chatbot_botname() {
  * Returns: the name of the user as a null-terminated string
  */
 const char *chatbot_username() {
-
     return "User";
 
 }
@@ -174,10 +173,7 @@ int chatbot_is_load(const char *intent) {
 int chatbot_do_load(int inc, char *inv[], char *response, int n) {
     // To be implemented
     FILE *file_PTR;
-
     char file_name = inv[1];
-
-
     char buf[1000];
 
     file_PTR = fopen(file_name, "r");
@@ -187,7 +183,6 @@ int chatbot_do_load(int inc, char *inv[], char *response, int n) {
         snprintf(response, n, "Error loading file");
         return 0;
     }
-
 
     while (fgets(buf, 1000, file_PTR) != NULL)
         printf("%s", buf);
@@ -341,7 +336,7 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
  */
 int chatbot_is_smalltalk(const char *intent) {
 
-    char *small_talk_key_words[] = {"Hello", "It's"};
+    char *small_talk_key_words[] = {"hello", "it's"};
 
     for (int i = 0; i < 2; i++) {
         if (strcmp(intent, small_talk_key_words[i]) == 0) {
@@ -363,9 +358,9 @@ int chatbot_is_smalltalk(const char *intent) {
  *   1, if the chatbot should stop chatting (e.g. the smalltalk was "goodbye" etc.)
  */
 int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
-    char *small_talk_key_words[] = {"Hello", "It's"};
+    char *small_talk_key_words[] = {"hello", "it's"};
 
-    // Chat Bot's response to "Hello"
+    // Chat Bot's response to "Hello" or "hello"
     if (strcmp(inv[0], small_talk_key_words[0]) == 0) {
         snprintf(response, n, "Hello");
     }

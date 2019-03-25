@@ -15,7 +15,7 @@
 
 /* word delimiters */
 const char *delimiters = " ?\t\n";
-
+int formatString(char *string);
 
 /*
  * Main loop.
@@ -39,11 +39,11 @@ int main(int argc, char *argv[]) {
 
     /* main command loop */
     do {
-
         do {
             /* read the line */
             printf("%s: ", chatbot_username());
             fgets(input, MAX_INPUT, stdin);
+            formatString(input);
 
             /* split it into words */
             inc = 0;
@@ -129,4 +129,16 @@ void prompt_user(char *buf, int n, const char *format, ...) {
     char *nl = strchr(buf, '\n');
     if (nl != NULL)
         *nl = '\0';
+}
+
+int formatString(char *string) {
+    // Remove the newline from fgets
+    size_t ln = strlen(string) - 1;
+    if (string[ln] == '\n') {
+        string[ln] = '\0';
+    }
+
+    for (size_t i = 0; i < strlen(string); i++) {
+        string[i] = tolower(string[i]);
+    }
 }
