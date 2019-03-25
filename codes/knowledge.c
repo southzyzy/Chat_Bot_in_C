@@ -11,7 +11,7 @@
  *
  * You may add helper functions as necessary.
  */
- 
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -32,11 +32,11 @@
  *   KB_INVALID, if 'intent' is not a recognised question word
  */
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
-	
-	/* to be implemented */
-	
-	return KB_NOTFOUND;
-	
+
+    /* to be implemented */
+
+    return KB_NOTFOUND;
+
 }
 
 
@@ -56,11 +56,11 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
  *   KB_INVALID, if the intent is not a valid question word
  */
 int knowledge_put(const char *intent, const char *entity, const char *response) {
-	
-	/* to be implemented */
-	
-	return KB_INVALID;
-	
+
+    /* to be implemented */
+
+    return KB_INVALID;
+
 }
 
 
@@ -73,10 +73,10 @@ int knowledge_put(const char *intent, const char *entity, const char *response) 
  * Returns: the number of entity/response pairs successful read from the file
  */
 int knowledge_read(FILE *f) {
-	
-	/* to be implemented */
-	
-	return 0;
+
+    /* to be implemented */
+
+    return 0;
 }
 
 
@@ -84,12 +84,12 @@ int knowledge_read(FILE *f) {
  * Reset the knowledge base, removing all know entitities from all intents.
  */
 void knowledge_reset(int inc, char *inv[]) {
-	
-	/* to be implemented */
-	while (inv[inc] != NULL) {
-		inv[inc] = NULL;
-		inc++;
-	}
+
+    /* to be implemented */
+    while (inv[inc] != NULL) {
+        inv[inc] = NULL;
+        inc++;
+    }
 }
 
 
@@ -100,7 +100,7 @@ void knowledge_reset(int inc, char *inv[]) {
  *   f - the file
  */
 void knowledge_write(FILE *f) {
-	
-	/* to be implemented */
-	
+
+    /* to be implemented */
+
 }

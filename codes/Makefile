@@ -14,14 +14,14 @@
 #
 # Use the following settings for Microsoft compilers (Visual Studio).
 #
-CC       = cl
-CFLAGS   = /nologo /c /Fo:
-LD       = link
-LDFLAGS  = /nologo /out:
-LDLIBS   = user32.lib
-RM       = del
-O        = .obj
-X        = .exe
+ CC       = cl
+ CFLAGS   = /nologo /c /Fo:
+ LD       = link
+ LDFLAGS  = /nologo /out:
+ LDLIBS   = user32.lib
+ RM       = del
+ O        = .obj
+ X        = .exe
 
 #
 # Use the following settings for GNU compilers (gcc).
@@ -29,7 +29,7 @@ X        = .exe
 #CC       = gcc
 #CFLAGS   = -c -o
 #LD       = gcc
-#LDFLAGS  = -o 
+#LDFLAGS  = -o
 #LDLIBS   =
 #RM       = rm -f
 #O        = .o
