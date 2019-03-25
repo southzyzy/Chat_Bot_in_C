@@ -3,7 +3,7 @@
 
 typedef struct node {
     int key;
-    int val;
+    char *val;
     struct node *next;
 } Dict;
 
@@ -14,15 +14,15 @@ typedef struct table {
 
 Table *createTable(int size);
 int hashCode(Table *t, int key);
-void insert(Table *t, int key, int val);
-int lookup(Table *t, int key);
+void insert(Table *t, int key, char *val);
+char *lookup(Table *t, int key);
 
 
 int main() {
     Table *t = createTable(5);
-    insert(t, 1, 3);
-    insert(t, 2, 4);
-    printf("%d", lookup(t, 1));
+    insert(t, 1, "Hello");
+    insert(t, 2, "World");
+    printf("%s\n", lookup(t, 1));
     return 0;
 }
 
@@ -42,11 +42,13 @@ int hashCode(Table *t, int key) {
     return key % t->size;
 }
 
-void insert(Table *t, int key, int val) {
+void insert(Table *t, int key, char *val) {
     int pos = hashCode(t, key);
     Dict *list = t->list[pos];
     Dict *newNode = (Dict *) malloc(sizeof(Dict));
     Dict *temp = list;
+
+    // Override the value if the key provided is the same as the one that exist in the list
     while (temp) {
         if (temp->key == key) {
             temp->val = val;
@@ -60,15 +62,15 @@ void insert(Table *t, int key, int val) {
     t->list[pos] = newNode;
 }
 
-int lookup(Table *t, int key) {
+char *lookup(Table *t, int key) {
     int pos = hashCode(t, key);
     Dict *list = t->list[pos];
     Dict *temp = list;
     while (temp) {
         if (temp->key == key) {
-            return temp->val;
+            return temp-> val;
         }
         temp = temp->next;
     }
-    return -1;
+    return "Cannot Find";
 }
