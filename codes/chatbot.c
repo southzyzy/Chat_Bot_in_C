@@ -331,9 +331,9 @@ int chatbot_is_save(const char *intent) {
 int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 	
 	/* to be implemented */
-	knowledge_write(to_save_file);
+	//knowledge_write(to_save_file);
 	snprintf(response, n, "Chatbot saved.");
-	fclose(to_save_file);
+	//fclose(to_save_file);
 	return 0;
 }
  
