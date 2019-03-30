@@ -192,14 +192,15 @@ int chatbot_do_load(int inc, char *inv[], char *response, int n) {
  */
 int chatbot_is_question(const char *intent) {
     // not done
-    char *question_key_words[] = {"what", "where", "who"};
+	// char *question_key_words[] = {"what", "where", "who"};
 
-    for (int i = 0; i < 3; i++) {
-        if (strcmp(intent, question_key_words[i]) == 0) {
-            return 1;
-        }
-    }
-    return 0;
+    // for (int i = 0; i < 3; i++) {
+        // if (strcmp(intent, question_key_words[i]) == 0) {
+            // return 1;
+        // }
+    // }
+	// return 0;
+	return compare_token(intent, "what") == 0 || compare_token(intent, "where") == 0 || compare_token(intent, "who") == 0;
 }
 
 
@@ -218,33 +219,55 @@ int chatbot_is_question(const char *intent) {
  */
 int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be implemented 
 {
-    char *question_key_words[] = {"what", "where", "who"};
-
-    printf("%d\n", inc);
-    printf("%s", inv[0]);
-
-    int check = 0;
-
-    for (int i = 0; i < 3; i++)
-    {
-        if (strcmp(inv[0], question_key_words[i]) == 0)
-        {
-            check = 1;
-            break;
-        }
-    }
-
-    if (check == 0)
-    {
-        snprintf(response, n, "I don't know.");
+    char *after_question_words[] = {"is","are"};
+	char entity[MAX_RESPONSE] = "";
+	
+	//Get the entity.
+	for(int i = 2; i < inc; i++)
+	{
+			strcat(entity,inv[i]);
+			if(i != inc-1)
+			{
+				strcat(entity," ");
+			}
+		
+	}
+	if(knowledge_get(inv[0], entity, response, n))
+	{
         return 0;
-    }
+		//return knowledge_put(inv[0],entity, response);
+	}
+	else
+	{
+		return 0;
+	}
+    // char *question_key_words[] = {"what", "where", "who"};
 
-    else
-    {
-        snprintf(response, n, "This is a qn");
-        return 0;
-    }
+    // printf("%d\n", inc);
+    // printf("%s", inv[0]);
+
+    // int check = 0;
+
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     if (strcmp(inv[0], question_key_words[i]) == 0)
+    //     {
+    //         check = 1;
+    //         break;
+    //     }
+    // }
+
+    // if (check == 0)
+    // {
+    //     snprintf(response, n, "I don't know.");
+    //     return 0;
+    // }
+
+    // else
+    // {
+    //     snprintf(response, n, "This is a qn");
+    //     return 0;
+    // }
     
 
   

@@ -45,9 +45,30 @@ struct node *head_PTR = NULL;
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
 
     /* to be implemented */
-
-    return KB_NOTFOUND;
-
+    char reply[50] = "SIT is a university in Nanyang Polytechnic.";
+	char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
+	char reply3[50] = "Introduction to ICT.";
+	/* to be implemented */
+	if(compare_token(entity, "sit") == 0)
+	{
+		snprintf(response, n, "%s", reply);
+		return KB_OK;
+	}
+	else if(compare_token(entity, "the ICT Cluster") == 0)
+	{
+		snprintf(response, n, "%s", reply2);
+		return KB_OK;
+	}
+	else if(compare_token(entity, "ICT1001") == 0)
+	{
+		snprintf(response, n, "%s", reply3);
+		return KB_OK;
+	}
+	else
+	{
+		snprintf(response, n, "I don't know. What is '%s'?", entity);
+		return KB_NOTFOUND;
+	}
 }
 
 
