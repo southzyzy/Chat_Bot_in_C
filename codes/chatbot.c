@@ -44,7 +44,6 @@
 #include <string.h>
 #include "chat1002.h"
 
-
 /*
  * Get the name of the chatbot.
  *
@@ -171,25 +170,13 @@ int chatbot_is_load(const char *intent) {
  *   0 (the chatbot always continues chatting after loading knowledge)
  */
 int chatbot_do_load(int inc, char *inv[], char *response, int n) {
-    // To be implemented
-    FILE *file_PTR;
-    char file_name = inv[1];
-    char buf[1000];
+    // variable to store the name of the file 
+    char file_name[10];
+    
+    strcpy(file_name, inv[1]);
 
-    file_PTR = fopen(file_name, "r");
-
-    // If chat bot is unable to open the file
-    if (!file_PTR) {
-        snprintf(response, n, "Error loading file");
-        return 0;
-    }
-
-    while (fgets(buf, 1000, file_PTR) != NULL)
-        printf("%s", buf);
-
-    fclose(file_PTR);
-
-    return 0;
+    // read the contents of the file 
+    knowledge_read(file_name);
 }
 
 
@@ -233,9 +220,40 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
 {
     char *question_key_words[] = {"what", "where", "who"};
 
-    if (strcmp(inv[0], question_key_words[0]) == 0) {
-        snprintf(response, n, "I don't know.");
+    printf("%d\n", inc);
+    printf("%s", inv[0]);
+
+    int check = 0;
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (strcmp(inv[0], question_key_words[i]) == 0)
+        {
+            check = 1;
+            break;
+        }
     }
+
+    if (check == 0)
+    {
+        snprintf(response, n, "I don't know.");
+        return 0;
+    }
+
+    else
+    {
+        snprintf(response, n, "This is a qn");
+        return 0;
+    }
+    
+
+  
+
+
+ 
+
+
+
 
     return 0;
 

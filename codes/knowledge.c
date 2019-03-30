@@ -17,6 +17,17 @@
 #include <string.h>
 #include "chat1002.h"
 
+// linked-list structure
+struct node
+{
+    char key;
+    char value;
+    struct node *next;
+};
+
+// pointer to point to the haed of the linked-list
+struct node *head_PTR = NULL;
+
 /*
  * Get the response to a question.
  *
@@ -72,12 +83,58 @@ int knowledge_put(const char *intent, const char *entity, const char *response) 
  *
  * Returns: the number of entity/response pairs successful read from the file
  */
-int knowledge_read(FILE *f) {
+int knowledge_read(FILE *f) 
+{
+    // file pointer 
+    FILE *f_PTR;
 
-    /* to be implemented */
+    // variable to store each line of txt file 
+    char sentence[400];
 
+    f_PTR = fopen(f, "r");
+
+    // Case 1: There is an issue opening the file 
+    if (f_PTR == NULL)
+    {
+        printf("Error: There is an issue accessing the file.");
+    }
+
+    // Case 2: There is no issue opening the file 
+    else
+    {
+        while (!feof(f_PTR))
+        {
+            fgets(sentence, 400, f_PTR);
+            insert_node(sentence);
+        }
+        fclose(f_PTR);
+    }
+    
     return 0;
 }
+
+// Function to insert into linked-list 
+void insert_node(char *sentence)
+{
+
+    // to be completed
+    // temp pointer to point to the head_PTR
+    struct node *temp_PTR = head_PTR;
+
+    //
+
+    // Case 1: Linked-list is empty
+    if (head_PTR == NULL)
+    {
+        struct node *newNode = (struct node*)malloc(sizeof(struct node));
+        newNode->key;
+        newNode->next;
+        newNode->value;
+
+    }
+
+}
+
 
 
 /*
