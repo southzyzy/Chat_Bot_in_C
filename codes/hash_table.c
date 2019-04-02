@@ -30,8 +30,7 @@ Table *createTable(int size) {
     Table *t = (Table *) malloc(sizeof(Table));
     t->size = size;
     t->list = (Dict **) malloc(sizeof(Dict *) * size);
-    int i;
-    for (i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
         t->list[i] = NULL;
     return t;
 }
