@@ -15,7 +15,6 @@
 
 /* word delimiters */
 const char *delimiters = " ?\t\n";
-int formatString(char *string);
 
 /*
  * Main loop.

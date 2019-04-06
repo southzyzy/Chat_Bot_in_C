@@ -33,39 +33,37 @@
  *   KB_INVALID, if 'intent' is not a recognised question word
  */
 node *knowledge = NULL;
+
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
 
     /* to be implemented */
     // char reply[50] = "SIT is a university in Nanyang Polytechnic.";
-	// char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
-	// char reply3[50] = "Introduction to ICT.";
-	char *answer = getAnswer(knowledge, intent, entity);
-	/* to be implemented */
-	// if(compare_token(entity, "sit") == 0)
-	// {
-	// 	snprintf(response, n, "%s", reply);
-	// 	return KB_OK;
-	// }
-	// else if(compare_token(entity, "the ICT Cluster") == 0)
-	// {
-	// 	snprintf(response, n, "%s", reply2);
-	// 	return KB_OK;
-	// }
-	// else if(compare_token(entity, "ICT1001") == 0)
-	// {
-	// 	snprintf(response, n, "%s", reply3);
-	// 	return KB_OK;
-	// }
-	if(answer != NULL)
-	{
-		snprintf(response, n, "%s", answer);
-		return KB_OK;
-	}
-	else
-	{
-		return KB_NOTFOUND;
-	}
-	
+    // char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
+    // char reply3[50] = "Introduction to ICT.";
+    char *answer = getAnswer(knowledge, intent, entity);
+    /* to be implemented */
+    // if(compare_token(entity, "sit") == 0)
+    // {
+    // 	snprintf(response, n, "%s", reply);
+    // 	return KB_OK;
+    // }
+    // else if(compare_token(entity, "the ICT Cluster") == 0)
+    // {
+    // 	snprintf(response, n, "%s", reply2);
+    // 	return KB_OK;
+    // }
+    // else if(compare_token(entity, "ICT1001") == 0)
+    // {
+    // 	snprintf(response, n, "%s", reply3);
+    // 	return KB_OK;
+    // }
+    if (answer != NULL) {
+        snprintf(response, n, "%s", answer);
+        return KB_OK;
+    } else {
+        return KB_NOTFOUND;
+    }
+
 }
 
 
@@ -87,9 +85,9 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
 int knowledge_put(const char *intent, const char *entity, const char *response) {
 
     /* to be implemented */
-	knowledge = insertNode(knowledge, intent, entity, response);
-	printLinkedList(knowledge);
-	return KB_OK;
+    knowledge = insertNode(knowledge, intent, entity, response);
+    printLinkedList(knowledge);
+    return KB_OK;
 }
 
 /*
@@ -109,11 +107,7 @@ int knowledge_read(FILE *f) {
 
     char *comparsion_header[] = {"who", "where", "what"};
 
-    char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/hash_table/test.ini";
-    f_PTR = fopen((const char *) file, "rb");
-
-    // create hash table based on the size of the file
-    Table *knowledge_table = createTable(sizeof(f_PTR));
+    f_PTR = fopen((const char *) f, "rb");
 
     // Case 1: There is an issue opening the file
     if (f_PTR == NULL) {
@@ -160,51 +154,6 @@ int knowledge_read(FILE *f) {
         }
     }
     fclose(f_PTR);
-=======
-    // // file pointer 
-    // FILE *f_PTR;
-
-    // // variable to store each line of txt file 
-    // char sentence[MAX_INPUT];
-
-    // char *comparsion_header[] = {"[who]"};
-
-    // f_PTR = fopen((const char *) f, "r");
-
-    // // create hash table based on the size of the file
-    // Table *knowledge_table = createTable(12);
-
-    // // Case 1: There is an issue opening the file 
-    // if (f_PTR == NULL) {
-    //     printf("Error: There is an issue accessing the file.\n");
-    //     return 0;
-    // }
-
-    // int key = 1; // variable to determine size of hash table to create
-    // char delimiter[] = "="; // delimiter
-
-    // while (!feof(f_PTR) && fgets(sentence, sizeof(sentence), f_PTR)) {
-    //     // get the first token and store it
-    //     char *token = strtok(sentence, delimiter);
-
-    //     char qn[MAX_INPUT], ans[MAX_INPUT];
-    //     strcpy(qn, token);
-    //     printf("%d. %s\n", key, qn);
-
-    //     // Get the second token and store it
-    //     while (token != 0) {
-    //         token = strtok(0, delimiter);
-    //         strcpy(ans, token);
-    //         printf("%d. %s", key, ans);
-    //         break;
-    //     }
-
-    //     insert(knowledge_table, key, qn, ans);
-    //     key++;
-    // }
-    // printf("%s\n", lookup(knowledge_table, 10));
-    // fclose(f_PTR);
->>>>>>> Stashed changes
 
     return 0;
 }
@@ -215,15 +164,15 @@ int knowledge_read(FILE *f) {
  */
 void knowledge_reset() {
 
-	// /* to be implemented */
-	// while (t == NULL) {
-	// }
+    // /* to be implemented */
+    // while (t == NULL) {
+    // }
 
-	// for (int i = 0; i < t->size; i++) {
-	// 	free(t->list[i]);
-	// }
+    // for (int i = 0; i < t->size; i++) {
+    // 	free(t->list[i]);
+    // }
 
-	//return NULL;
+    //return NULL;
 }
 
 
@@ -235,44 +184,44 @@ void knowledge_reset() {
  */
 int knowledge_write(FILE *f) {
 
-	// Table *temp = t;
-	// int counter = 0;
-	// /* to be implemented */
-	// for (int i = 0; i < temp->size; i++) {
-	// 	if (i == 0) {
-	// 		fprintf(f, "[what]");
-	// 		Dict *tempd = temp->list[i];
-	// 		while (tempd->next != NULL) {
-	// 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
-	// 			counter += 1;
-	// 		}
-	// 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
-	// 		counter += 1;
-	// 		printf("\n");
-	// 	}
-	// 	else if (i == 1) {
-	// 		fprintf(f, "[where]");
-	// 		Dict *tempd = temp->list[i];
-	// 		while (tempd->next != NULL) {
-	// 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
-	// 			counter += 1;
-	// 		}
-	// 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
-	// 		counter += 1;
-	// 		printf("\n");
-	// 	}
-	// 	else if (i == 2) {
-	// 		fprintf(f, "[who]");
-	// 		Dict *tempd = temp->list[i];
-	// 		while (tempd->next != NULL) {
-	// 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
-	// 			counter += 1;
-	// 		}
-	// 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
-	// 		counter += 1;
-	// 		printf("\n");
-	// 	}
-	// }
+    // Table *temp = t;
+    // int counter = 0;
+    // /* to be implemented */
+    // for (int i = 0; i < temp->size; i++) {
+    // 	if (i == 0) {
+    // 		fprintf(f, "[what]");
+    // 		Dict *tempd = temp->list[i];
+    // 		while (tempd->next != NULL) {
+    // 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
+    // 			counter += 1;
+    // 		}
+    // 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
+    // 		counter += 1;
+    // 		printf("\n");
+    // 	}
+    // 	else if (i == 1) {
+    // 		fprintf(f, "[where]");
+    // 		Dict *tempd = temp->list[i];
+    // 		while (tempd->next != NULL) {
+    // 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
+    // 			counter += 1;
+    // 		}
+    // 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
+    // 		counter += 1;
+    // 		printf("\n");
+    // 	}
+    // 	else if (i == 2) {
+    // 		fprintf(f, "[who]");
+    // 		Dict *tempd = temp->list[i];
+    // 		while (tempd->next != NULL) {
+    // 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
+    // 			counter += 1;
+    // 		}
+    // 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
+    // 		counter += 1;
+    // 		printf("\n");
+    // 	}
+    // }
 
-	return 0;
+    return 0;
 }

@@ -53,6 +53,7 @@ int formatString(char *string);
 /* functions defined in knowledge.c */
 int knowledge_get(const char *intent, const char *entity, char *response, int n);
 int knowledge_put(const char *intent, const char *entity, const char *response);
+int knowledge_read(FILE *f);
 
 /* functions defined in linkedlist.c */
 //void lowerWord(char *word);
