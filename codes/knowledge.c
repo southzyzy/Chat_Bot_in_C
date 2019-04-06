@@ -87,10 +87,10 @@ int knowledge_put(const char *intent, const char *entity, const char *response) 
  * Returns: the number of entity/response pairs successful read from the file
  */
 int knowledge_read(FILE *f) {
-    // file pointer 
+    // file pointer
     FILE *f_PTR;
 
-    // variable to store each line of txt file 
+    // variable to store each line of txt file
     char sentence[MAX_INPUT];
 
     char *comparsion_header[] = {"[who]"};
@@ -98,9 +98,9 @@ int knowledge_read(FILE *f) {
     f_PTR = fopen((const char *) f, "r");
 
     // create hash table based on the size of the file
-    Table *knowledge_table = createTable(12);
+    Table *knowledge_table = createTable(sizeof(f_PTR));
 
-    // Case 1: There is an issue opening the file 
+    // Case 1: There is an issue opening the file
     if (f_PTR == NULL) {
         printf("Error: There is an issue accessing the file.\n");
         return 0;
@@ -113,22 +113,25 @@ int knowledge_read(FILE *f) {
         // get the first token and store it
         char *token = strtok(sentence, delimiter);
 
-        char qn[MAX_INPUT], ans[MAX_INPUT];
+        char *qn = malloc(sizeof(sentence));
+        char *ans = malloc(sizeof(sentence));
+
         strcpy(qn, token);
-        printf("%d. %s\n", key, qn);
 
         // Get the second token and store it
         while (token != 0) {
             token = strtok(0, delimiter);
             strcpy(ans, token);
-            printf("%d. %s", key, ans);
             break;
         }
 
         insert(knowledge_table, key, qn, ans);
+        free(qn);
+        free(ans);
         key++;
     }
-    printf("%s\n", lookup(knowledge_table, 10));
+
+    printf("%s\n", lookup(knowledge_table, 2));
     fclose(f_PTR);
 
     return 0;
