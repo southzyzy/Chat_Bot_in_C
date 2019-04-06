@@ -317,7 +317,7 @@ int chatbot_is_reset(const char *intent) {
 int chatbot_do_reset(int inc, char *inv[], char *response, int n) {
 
     /* to be implemented */
-    knowledge_reset(inc, inv);
+    knowledge_reset(knowledge_table);
     snprintf(response, n, "Chatbot reset.");
 
     return 0;
@@ -357,11 +357,23 @@ int chatbot_is_save(const char *intent) {
  */
 int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 
-    /* to be implemented */
-    //knowledge_write(to_save_file);
-    snprintf(response, n, "Chatbot saved.");
-    //fclose(to_save_file);
-    return 0;
+	/* to be implemented */
+	FILE *to_save_file;
+	char filename[MAX_INPUT];
+	snprintf(to_save_file, MAX_INPUT, "%s.ini", inv[1]);
+
+	to_save_file = fopen(filename, "w");
+	if (to_save_file == NULL) {
+		snprintf(response, n, "Could not open file.");
+		return 0;
+	}
+	else {
+		int counter = knowledge_write(to_save_file, knowledge_table);
+		fclose(to_save_file);
+		snprintf(response, n, "Chatbot saved.");
+		snprintf(response, n, "%d lines written.", counter);
+		return 0;
+	}
 }
 
 

@@ -211,3 +211,14 @@ resources/gengar
 source_code/serverside/private/*
 !source_code/serverside/private/README.md
 # End of DO NOT MODIFY warning.
+.vs/VSWorkspaceState.json
+.vs/ICT1002_Chat_Bot/v15/.suo
+.vs/ICT1002_Chat_Bot/v15/Browse.VC.db
+.vs/ICT1002_Chat_Bot/v15/Browse.VC.opendb
+.vs/ICT1002_Chat_Bot/v15/ipch/AutoPCH/547dfd293cc1c1f6/KNOWLEDGE.ipch
+.vs/ICT1002_Chat_Bot/v15/ipch/AutoPCH/59eb690d7e8c12c7/HASH_TABLE.ipch
+.vs/ICT1002_Chat_Bot/v15/ipch/AutoPCH/afc7c8fa538be88b/CHATBOT.ipch
+.vs/ICT1002_Chat_Bot/v15/ipch/AutoPCH/cd6426e06325057/MAIN.ipch
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+codes/chatbot.obj
