@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "chat1002.h"
-
 /*
  * Get the response to a question.
  *
@@ -35,22 +34,40 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
 
     /* to be implemented */
     char reply[50] = "SIT is a university in Nanyang Polytechnic.";
-    char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
-    char reply3[50] = "Introduction to ICT.";
-    /* to be implemented */
-    if (compare_token(entity, "sit") == 0) {
-        snprintf(response, n, "%s", reply);
-        return KB_OK;
-    } else if (compare_token(entity, "the ICT Cluster") == 0) {
-        snprintf(response, n, "%s", reply2);
-        return KB_OK;
-    } else if (compare_token(entity, "ICT1001") == 0) {
-        snprintf(response, n, "%s", reply3);
-        return KB_OK;
-    } else {
-        snprintf(response, n, "I don't know. What is '%s'?", entity);
-        return KB_NOTFOUND;
+	char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
+	char reply3[50] = "Introduction to ICT.";
+    char answer[100];
+    strcpy(answer, lookup(knowledge, 1));
+    if(answer == NULL)
+    {
+        printf("failed to get answer.");
     }
+    else
+    {
+        printf(answer);
+    }
+    
+	/* to be implemented */
+	if(compare_token(entity, "sit") == 0)
+	{
+		snprintf(response, n, "%s", reply);
+		return KB_OK;
+	}
+	else if(compare_token(entity, "the ICT Cluster") == 0)
+	{
+		snprintf(response, n, "%s", reply2);
+		return KB_OK;
+	}
+	else if(compare_token(entity, "ICT1001") == 0)
+	{
+		snprintf(response, n, "%s", reply3);
+		return KB_OK;
+	}
+	else
+	{
+		//snprintf(response, n, "I don't know. What is '%s'?", entity);
+		return KB_NOTFOUND;
+	}
 }
 
 
@@ -72,9 +89,21 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
 int knowledge_put(const char *intent, const char *entity, const char *response) {
 
     /* to be implemented */
-
-    return KB_INVALID;
-
+    // int key = getLastKey(knowledge);
+    // char question[MAX_INPUT] = "";
+    // if(key != NULL)
+    // {
+    //     strcpy(question, intent);
+    //     strcat(question, entity);
+    //     insert(knowledge, key, question, response);
+    //     return KB_OK;
+    // }
+    // else
+    // {
+    //     printf("Failed to get key...");
+    //     return KB_OK;
+    // }
+    return KB_OK;
 }
 
 

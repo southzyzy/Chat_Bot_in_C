@@ -233,48 +233,11 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
 
     }
     if (knowledge_get(inv[0], entity, response, n)) {
-        return 0;
-        //return knowledge_put(inv[0],entity, response);
-    } else {
-        return 0;
+        prompt_user(response, n, "I don't know. What is '%s'?", entity);
+        knowledge_put(inv[0], entity, response);
+        //Change the buffer to thank the user rather than his inputs.
+        snprintf(response, n, "Thank you.");
     }
-    // char *question_key_words[] = {"what", "where", "who"};
-
-    // printf("%d\n", inc);
-    // printf("%s", inv[0]);
-
-    // int check = 0;
-
-    // for (int i = 0; i < 3; i++)
-    // {
-    //     if (strcmp(inv[0], question_key_words[i]) == 0)
-    //     {
-    //         check = 1;
-    //         break;
-    //     }
-    // }
-
-    // if (check == 0)
-    // {
-    //     snprintf(response, n, "I don't know.");
-    //     return 0;
-    // }
-
-    // else
-    // {
-    //     snprintf(response, n, "This is a qn");
-    //     return 0;
-    // }
-
-
-
-
-
-
-
-
-
-
     return 0;
 
 }
@@ -399,7 +362,6 @@ int chatbot_is_smalltalk(const char *intent) {
 
     // return error if the file cannot be open
     if (fp == NULL) {
-        printf("Unable to open Words.txt.\n");
         return 0;
     }
 
@@ -459,7 +421,6 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
 
     // return error if the file cannot be open
     if (fp == NULL) {
-        printf("Unable to open Words.txt.\n");
         return 0;
     }
 
