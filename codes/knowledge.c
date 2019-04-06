@@ -47,17 +47,6 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
     } else {
         return KB_NOTFOUND;
     }
-
-    =======
-    char *answer = getAnswer(knowledge, intent, entity);
-
-    /* to be implemented */
-    if (answer != NULL) {
-        snprintf(response, n, "%s", answer);
-        return KB_OK;
-    } else {
-        return KB_NOTFOUND;
-    }
 }
 
 
