@@ -61,6 +61,7 @@ char *lookup(Table *t, int key) {
 
             printf("Question: %s\n", question);
             printf("Answer: %s\n", answer);
+            return 1;
         }
         temp = temp->next;
     }
