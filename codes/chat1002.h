@@ -54,26 +54,8 @@ int formatString(char *string);
 int knowledge_get(const char *intent, const char *entity, char *response, int n);
 int knowledge_put(const char *intent, const char *entity, const char *response);
 
-/* functions defined in hash_table.c */
-typedef struct node {
-    int key;
-    char *question;
-    char *answer;
-    struct node *next;
-} Dict;
+/* functions defined in linkedlist.c */
+//void lowerWord(char *word);
 
-typedef struct table {
-    int size;
-    Dict **list;
-} Table;
-
-Table *createTable(int size);
-int hashCode(Table *t, int key);
-void insert(Table *t, int key, char *question, char *answer);
-char *lookup(Table *t, int key);
-
-Table *knowledge_reset(Table *t);
-int knowledge_read(FILE *f);
-int knowledge_write(FILE *f, Table *t);
 
 #endif

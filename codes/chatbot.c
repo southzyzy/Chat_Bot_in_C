@@ -276,7 +276,7 @@ int chatbot_is_reset(const char *intent) {
 int chatbot_do_reset(int inc, char *inv[], char *response, int n) {
 
     /* to be implemented */
-    knowledge_reset(knowledge_table);
+    //knowledge_reset(knowledge_table);
     snprintf(response, n, "Chatbot reset.");
 
     return 0;
@@ -327,10 +327,10 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 		return 0;
 	}
 	else {
-		int counter = knowledge_write(to_save_file, knowledge_table);
+		//int counter = knowledge_write(to_save_file, knowledge_table);
 		fclose(to_save_file);
 		snprintf(response, n, "Chatbot saved.");
-		snprintf(response, n, "%d lines written.", counter);
+		//snprintf(response, n, "%d lines written.", counter);
 		return 0;
 	}
 }
