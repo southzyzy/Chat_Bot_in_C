@@ -356,7 +356,7 @@ int chatbot_is_smalltalk(const char *intent) {
 
     /* Load the small talk list and append it into the hash_table */
     FILE *fp;
-    char file[MAX_INPUT] = "data/Small_Talk_Questions.txt";
+    char file[MAX_INPUT] = "../data/Small_Talk_Questions.txt";
 
     // Open the file and append the small file question list
     fp = fopen(file, "r");
@@ -413,7 +413,7 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     }
 
     FILE *fp;
-    char file[MAX_INPUT] = "data/Small_Talk_Questions.txt";
+    char file[MAX_INPUT] = "../data/Small_Talk_Questions.txt";
 
     // Open the file and append the small file question list
     fp = fopen(file, "r");
