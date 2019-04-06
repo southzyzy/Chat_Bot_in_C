@@ -376,15 +376,46 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
  *  0, otherwise
  */
 int chatbot_is_smalltalk(const char *intent) {
+    /* Load the small talk list and append it into the hash_table */
+    FILE *fp;
+    char file[256];
 
-    char *small_talk_key_words[] = {"hello", "it's", "it"};
+    // construct the file name
+    snprintf(file, sizeof(file), "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/test/data/Small_Talk_Questions.txt");
 
-    for (int i = 0; i < 3; i++) {
-        if (strcmp(intent, small_talk_key_words[i]) == 0) {
-            return 1;
+    // Open the file and append the small file question list
+    fp = fopen(file, "r");
+
+    // return error if the file cannot be open
+    if (fp == NULL) {
+        printf("Unable to open Words.txt.\n");
+        return 0;
+    }
+
+    char line[256];
+    char delim[] = "::";
+    int qn_counter = 1; // even number is Question , odd number is the answer
+
+    while (fgets(line, sizeof(line), fp)) {
+        char *ptr = strtok(line, delim);
+        // Checks for delimeter
+        while (ptr != 0) {
+            if (strstr(ptr, intent) != NULL) {
+                fclose(fp);
+                return 1;
+            }
+            // else continues to find the question
+            qn_counter++;
+
+            // Use of strtok to split the :: variable and set strtok counter back to 0
+            ptr = strtok(0, delim);
         }
     }
+
+    fclose(fp);
+
     return 0;
+
 }
 
 
@@ -399,20 +430,43 @@ int chatbot_is_smalltalk(const char *intent) {
  *   1, if the chatbot should stop chatting (e.g. the smalltalk was "goodbye" etc.)
  */
 int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
-    char *small_talk_key_words[] = {"hello", "it's", "it"};
+    FILE *fp;
+    char file[256];
 
-    // Chat Bot's response to "Hello" or "hello"
-    if (strcmp(inv[0], small_talk_key_words[0]) == 0) {
-        snprintf(response, n, "Hello");
+    // construct the file name
+    snprintf(file, sizeof(file), "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/test/data/Small_Talk_Questions.txt");
+
+    // Open the file and append the small file question list
+    fp = fopen(file, "r");
+
+    // return error if the file cannot be open
+    if (fp == NULL) {
+        printf("Unable to open Words.txt.\n");
+        return 0;
     }
 
-        // Chat Bot's response to "It's" or it
-    else if (strcmp(inv[0], small_talk_key_words[1]) == 0 || strcmp(inv[0], small_talk_key_words[2]) == 0) {
-        snprintf(response, n, "Indeed it is.");
-    } else {
-        snprintf(response, n, "Goodbye.");
-        return 1;
+    char line[256];
+    char delim[] = "::";
+    int qn_counter = 1; // even number is Question , odd number is the answer
+
+    while (fgets(line, sizeof(line), fp)) {
+        char *ptr = strtok(line, delim);
+        // Checks for delimeter
+        while (ptr != 0) {
+            if (strstr(ptr, inv[0]) != NULL) {
+                ptr = strtok(0, delim); // reset the delim
+                snprintf(response, n, ptr);
+            }
+            // else continues to find the question
+            qn_counter++;
+
+            // Use of strtok to split the :: variable and set strtok counter back to 0
+            ptr = strtok(0, delim);
+        }
     }
+
+    fclose(fp);
 
     return 0;
+
 }
