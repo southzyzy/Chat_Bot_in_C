@@ -56,4 +56,24 @@ void knowledge_reset();
 int knowledge_read(FILE *f);
 void knowledge_write(FILE *f);
 
+/* functions defined in hash_table.c */
+typedef struct node {
+    int key;
+    char *val;
+    struct node *next;
+} Dict;
+
+typedef struct table {
+    int size;
+    Dict **list;
+} Table;
+
+
+Table *createTable(int size);
+int hashCode(Table *t, int key);
+void insert(Table *t, int key, char *val);
+char *lookup(Table *t, int key);
+
+
+
 #endif

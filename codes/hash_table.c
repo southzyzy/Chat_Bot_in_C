@@ -12,19 +12,19 @@ typedef struct table {
     Dict **list;
 } Table;
 
-Table *createTable(int size);
+/* Table *createTable(int size);
 int hashCode(Table *t, int key);
 void insert(Table *t, int key, char *val);
-char *lookup(Table *t, int key);
+char *lookup(Table *t, int key); */
 
 
-int main() {
+/* int main() {
     Table *t = createTable(5);
     insert(t, 1, "Hello");
     insert(t, 2, "World");
     printf("%s\n", lookup(t, 3));
     return 0;
-}
+} */
 
 Table *createTable(int size) {
     Table *t = (Table *) malloc(sizeof(Table));

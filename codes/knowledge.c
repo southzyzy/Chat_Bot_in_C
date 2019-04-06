@@ -17,17 +17,6 @@
 #include <string.h>
 #include "chat1002.h"
 
-// linked-list structure
-struct node
-{
-    char key;
-    char value;
-    struct node *next;
-};
-
-// pointer to point to the haed of the linked-list
-struct node *head_PTR = NULL;
-
 /*
  * Get the response to a question.
  *
@@ -112,6 +101,24 @@ int knowledge_read(FILE *f)
     // variable to store each line of txt file 
     char sentence[400];
 
+    // variable to determine size of hash table to create 
+    int count = 0;
+
+    // create hash table
+    Table *t = createTable(20);
+
+    // delimiter 
+    char delimiter[2] = "=";
+
+    char *token;
+
+    char *comparsion_header[] = {"[who]"};
+
+    
+
+
+
+
     f_PTR = fopen(f, "r");
 
     // Case 1: There is an issue opening the file 
@@ -125,35 +132,60 @@ int knowledge_read(FILE *f)
     {
         while (!feof(f_PTR))
         {
-            fgets(sentence, 400, f_PTR);
-            insert_node(sentence);
+            fgets(sentence, 350, f_PTR);
+
+            if (*sentence != '\n')
+            {
+                char temp_array[strlen(sentence)];
+
+                strcpy(temp_array, sentence);
+
+                
+                //printf("%d", strcmp(temp_array, comparsion_header[0]));
+
+
+
+
+                //if (strcmp(sentence, comparsion_header[0]) == 0)
+                //{
+               // /    printf("Test");
+                //}
+
+                // get the first token and store it
+                //token = strtok(sentence, delimiter);
+
+                //printf("%s\n", token);
+            }
+
+
+
+
+
+
+
+            
+            // if (*sentence != '\n')
+            // {
+            //     // get the first token and store it
+            //     token = strtok(sentence, delimiter);
+            //     //printf( "%s\n", token );
+            //     //insert(t, count, token);
+
+            //     // get the second token and store it
+
+            //     count += 1;
+            // }
+            
+            
+
         }
-        fclose(f_PTR);
     }
+
+    //printf("%s\n", lookup(t, 4));
+    fclose(f_PTR);
+   // printf("%d\n", count);
     
     return 0;
-}
-
-// Function to insert into linked-list 
-void insert_node(char *sentence)
-{
-
-    // to be completed
-    // temp pointer to point to the head_PTR
-    struct node *temp_PTR = head_PTR;
-
-    //
-
-    // Case 1: Linked-list is empty
-    if (head_PTR == NULL)
-    {
-        struct node *newNode = (struct node*)malloc(sizeof(struct node));
-        newNode->key;
-        newNode->next;
-        newNode->value;
-
-    }
-
 }
 
 
