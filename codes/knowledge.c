@@ -102,10 +102,10 @@ int knowledge_read(FILE *f)
     char sentence[400];
 
     // variable to determine size of hash table to create 
-    int count = 0;
+    int count = 1;
 
     // create hash table
-    Table *t = createTable(20);
+    Table *knowledge_table = createTable(20);
 
     // delimiter 
     char delimiter[2] = "=";
@@ -124,7 +124,7 @@ int knowledge_read(FILE *f)
     // Case 1: There is an issue opening the file 
     if (f_PTR == NULL)
     {
-        printf("Error: There is an issue accessing the file.");
+        printf("Error: There is an issue accessing the file.\n");
     }
 
     // Case 2: There is no issue opening the file 
@@ -134,56 +134,32 @@ int knowledge_read(FILE *f)
         {
             fgets(sentence, 350, f_PTR);
 
-            if (*sentence != '\n')
+            if (feof(f_PTR))
             {
-                char temp_array[strlen(sentence)];
-
-                strcpy(temp_array, sentence);
-
-                
-                //printf("%d", strcmp(temp_array, comparsion_header[0]));
-
-
-
-
-                //if (strcmp(sentence, comparsion_header[0]) == 0)
-                //{
-               // /    printf("Test");
-                //}
-
-                // get the first token and store it
-                //token = strtok(sentence, delimiter);
-
-                //printf("%s\n", token);
+                break;
             }
 
+            else
+            {
+                if (*sentence != '\n')
+                {
+                    // get the first token and store it
+                    token = strtok(sentence, delimiter);
+                    strcpy(first_token, token);
 
+                    // for troubleshooting
+                    printf("%s\n", first_token);
+                
+                    count += 1;
 
-
-
-
-
-            
-            // if (*sentence != '\n')
-            // {
-            //     // get the first token and store it
-            //     token = strtok(sentence, delimiter);
-            //     //printf( "%s\n", token );
-            //     //insert(t, count, token);
-
-            //     // get the second token and store it
-
-            //     count += 1;
-            // }
-            
-            
-
+                    insert(knowledge_table, count, first_token);
+                }
+            }
         }
+        fclose(f_PTR);
     }
 
-    //printf("%s\n", lookup(t, 4));
-    fclose(f_PTR);
-   // printf("%d\n", count);
+   //printf("%d\n", count);
     
     return 0;
 }
