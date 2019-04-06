@@ -140,7 +140,6 @@ int knowledge_read(FILE *f) {
     }
     fclose(f_PTR);
 
-
     return 0;
 }
 
