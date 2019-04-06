@@ -118,7 +118,6 @@ int knowledge_read(FILE *f)
 
 
 
-
     f_PTR = fopen(f, "r");
 
     // Case 1: There is an issue opening the file 
@@ -132,7 +131,7 @@ int knowledge_read(FILE *f)
     {
         while (!feof(f_PTR))
         {
-            fgets(sentence, 350, f_PTR);
+            fgets(sentence, 400, f_PTR);
 
             if (feof(f_PTR))
             {
@@ -145,21 +144,31 @@ int knowledge_read(FILE *f)
                 {
                     // get the first token and store it
                     token = strtok(sentence, delimiter);
-                    strcpy(first_token, token);
 
-                    // for troubleshooting
-                    printf("%s\n", first_token);
-                
+                    char qn[20];
+                    char ans[200];
+
+                    strcpy(qn, token);
+
+                    // Get the second token and store it 
+                    while(token != NULL) 
+                    {
+                        strcpy(ans, token);
+                        token = strtok(NULL, delimiter);
+                    }
+
                     count += 1;
 
-                    insert(knowledge_table, count, first_token);
+                    insert(knowledge_table, count, qn, ans);
                 }
             }
         }
         fclose(f_PTR);
     }
 
-   //printf("%d\n", count);
+
+    printf("%s\n", lookup(knowledge_table, 1));
+
     
     return 0;
 }
