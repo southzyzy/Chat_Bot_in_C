@@ -183,13 +183,17 @@ int knowledge_read(FILE *f)
 /*
  * Reset the knowledge base, removing all know entitities from all intents.
  */
-void knowledge_reset(int inc, char *inv[]) {
+Table *knowledge_reset(Table *t) {
 
-    /* to be implemented */
-    while (inv[inc] != NULL) {
-        inv[inc] = NULL;
-        inc++;
-    }
+	/* to be implemented */
+	while (t == NULL) {
+	}
+
+	for (int i = 0; i < t->size; i++) {
+		free(t->list[i]);
+	}
+
+	return NULL;
 }
 
 
@@ -199,8 +203,46 @@ void knowledge_reset(int inc, char *inv[]) {
  * Input:
  *   f - the file
  */
-void knowledge_write(FILE *f) {
+int knowledge_write(FILE *f, Table *t) {
 
-    /* to be implemented */
+	Table *temp = t;
+	int counter = 0;
+	/* to be implemented */
+	for (int i = 0; i < tempt->size; i++) {
+		if (i == 0) {
+			fprintf(f, "[what]");
+			Dict *tempd = temp->list[i];
+			while (tempd->next != NULL) {
+				fprintf(f, "%s=%s", tempd->question, tempd->answer)
+				counter += 1;
+			}
+			fprintf(f, "%s=%s", tempd->question, tempd->answer)
+			counter += 1;
+			fprintf("\n");
+		}
+		else if (i == 1) {
+			fprintf(f, "[where]");
+			Dict *tempd = temp->list[i];
+			while (tempd->next != NULL) {
+				fprintf(f, "%s=%s", tempd->question, tempd->answer)
+				counter += 1;
+			}
+			fprintf(f, "%s=%s", tempd->question, tempd->answer)
+			counter += 1;
+			fprintf("\n");
+		}
+		else if (i == 2) {
+			fprintf(f, "[who]");
+			Dict *tempd = temp->list[i];
+			while (tempd->next != NULL) {
+				fprintf(f, "%s=%s", tempd->question, tempd->answer)
+				counter += 1;
+			}
+			fprintf(f, "%s=%s", tempd->question, tempd->answer)
+			counter += 1;
+			fprintf("\n");
+		}
+	}
 
+	return counter;
 }
