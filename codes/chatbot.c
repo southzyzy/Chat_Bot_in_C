@@ -42,6 +42,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "chat1002.h"
 
 /*
@@ -170,12 +171,12 @@ int chatbot_is_load(const char *intent) {
  *   0 (the chatbot always continues chatting after loading knowledge)
  */
 int chatbot_do_load(int inc, char *inv[], char *response, int n) {
-    // variable to store the name of the file 
+    // variable to store the name of the file
     char file_name[10];
 
     strcpy(file_name, inv[1]);
 
-    // read the contents of the file 
+    // read the contents of the file
     knowledge_read(file_name);
 }
 
@@ -372,6 +373,11 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
  *  0, otherwise
  */
 int chatbot_is_smalltalk(const char *intent) {
+    /* initialise own question */
+    char question[MAX_INPUT];
+    /* To lower case the intent */
+    formatString(strcpy(question, intent));
+
     /* Load the small talk list and append it into the hash_table */
     FILE *fp;
     char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/test/data/Small_Talk_Questions.txt";
@@ -393,7 +399,7 @@ int chatbot_is_smalltalk(const char *intent) {
         char *ptr = strtok(line, delim);
         // Checks for delimeter
         while (ptr != 0) {
-            if (strstr(ptr, intent) != NULL) {
+            if (strstr(ptr, question) != NULL) {
                 fclose(fp);
                 return 1;
             }
@@ -425,9 +431,10 @@ int chatbot_is_smalltalk(const char *intent) {
 int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     // construct the question input by user
     char question[MAX_INPUT] = "";
-    for (int i = 0; i< (int) sizeof(*inv); i++) {
+    for (int i = 0; i < (int) sizeof(*inv); i++) {
         if (inv[i] == (char *) '\n' || inv[i] == NULL)
             break;
+        formatString(inv[i]);
         strcat(question, inv[i]);
         strcat(question, " ");
     }
@@ -468,4 +475,16 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
 
     return 0;
 
+}
+
+int formatString(char *string) {
+    // Remove the newline from fgets
+    size_t ln = strlen(string) - 1;
+    if (string[ln] == '\n') {
+        string[ln] = '\0';
+    }
+
+    for (size_t i = 0; i < strlen(string); i++) {
+        string[i] = tolower(string[i]);
+    }
 }
