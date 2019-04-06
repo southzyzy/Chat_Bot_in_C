@@ -42,6 +42,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include "chat1002.h"
 
@@ -317,23 +318,22 @@ int chatbot_is_save(const char *intent) {
  */
 int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 
-	/* to be implemented */
-	FILE *to_save_file;
-	char filename[MAX_INPUT];
-	snprintf(to_save_file, MAX_INPUT, "%s.ini", inv[1]);
+    /* to be implemented */
+    FILE *to_save_file;
+    char filename[MAX_INPUT];
+    snprintf(to_save_file, MAX_INPUT, "%s.ini", inv[1]);
 
-	to_save_file = fopen(filename, "w");
-	if (to_save_file == NULL) {
-		snprintf(response, n, "Could not open file.");
-		return 0;
-	}
-	else {
-		//int counter = knowledge_write(to_save_file, knowledge_table);
-		fclose(to_save_file);
-		snprintf(response, n, "Chatbot saved.");
-		//snprintf(response, n, "%d lines written.", counter);
-		return 0;
-	}
+    to_save_file = fopen(filename, "w");
+    if (to_save_file == NULL) {
+        snprintf(response, n, "Could not open file.");
+        return 0;
+    } else {
+        //int counter = knowledge_write(to_save_file, knowledge_table);
+        fclose(to_save_file);
+        snprintf(response, n, "Chatbot saved.");
+        //snprintf(response, n, "%d lines written.", counter);
+        return 0;
+    }
 }
 
 
@@ -350,13 +350,14 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
  */
 int chatbot_is_smalltalk(const char *intent) {
     /* initialise own question */
-    char question[MAX_INPUT];
+    char *question = (char *) malloc(sizeof(intent));
     /* To lower case the intent */
     formatString(strcpy(question, intent));
 
     /* Load the small talk list and append it into the hash_table */
     FILE *fp;
     char file[MAX_INPUT] = "../data/Small_Talk_Questions.txt";
+//    char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/ICT1002_Chat_Bot/data/Small_Talk_Questions.txt";
 
     // Open the file and append the small file question list
     fp = fopen(file, "r");
@@ -403,7 +404,9 @@ int chatbot_is_smalltalk(const char *intent) {
  */
 int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     // construct the question input by user
-    char question[MAX_INPUT] = "";
+
+    char *question = (char *) malloc(MAX_INPUT);
+
     for (int i = 0; i < (int) sizeof(*inv); i++) {
         if (inv[i] == (char *) '\n' || inv[i] == NULL)
             break;
@@ -413,6 +416,7 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     }
 
     FILE *fp;
+//    char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/ICT1002_Chat_Bot/data/Small_Talk_Questions.txt";
     char file[MAX_INPUT] = "../data/Small_Talk_Questions.txt";
 
     // Open the file and append the small file question list

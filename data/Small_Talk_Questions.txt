@@ -23,7 +23,6 @@ you are welcome::No you are not
 i do not care::So do i
 please::Dont be gay
 sorry::Dont be sorry
-what do you mean::Read again human
 haha::What is so funny
 goodbye::Bye Bye
 good evening::good evening
@@ -32,7 +31,6 @@ good night::good night
 how are you::I'm fine
 nice to meet you::Nice to meet you too
 nice to talk to you::My pleasure
-what is up::Ceiling
 i am bored::Too bad
 i am happy::Awesome
 i am sad::Too bad
