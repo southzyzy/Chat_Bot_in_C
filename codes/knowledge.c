@@ -122,9 +122,10 @@ int knowledge_read(FILE *f) {
     // variable to store each line of txt file
     char sentence[MAX_INPUT];
 
-    char *comparsion_header[] = {"[who]"};
+    char *comparsion_header[] = {"who", "where", "what"};
 
-    f_PTR = fopen((const char *) f, "r");
+    char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/hash_table/test.ini";
+    f_PTR = fopen((const char *) file, "rb");
 
     // create hash table based on the size of the file
     Table *knowledge_table = createTable(sizeof(f_PTR));
@@ -136,31 +137,43 @@ int knowledge_read(FILE *f) {
     }
 
     int key = 1; // variable to determine size of hash table to create
-    char delimiter[] = "="; // delimiter
+    char delimiter[] = "[]=\n"; // delimiter
 
     while (!feof(f_PTR) && fgets(sentence, sizeof(sentence), f_PTR)) {
-        // get the first token and store it
-        char *token = strtok(sentence, delimiter);
-
         char *qn = malloc(sizeof(sentence));
         char *ans = malloc(sizeof(sentence));
+        char *intent = malloc(sizeof(sentence));
 
-        strcpy(qn, token);
+        char *token = strtok(sentence, delimiter);
 
-        // Get the second token and store it
-        while (token != 0) {
-            token = strtok(0, delimiter);
-            strcpy(ans, token);
-            break;
+        for (int i = 0; i < 3; i++) {
+            if (strstr(token, comparsion_header[i])) {
+                // Get the intent of question
+                printf("Intent: %s\n", token);
+                // move to the next line
+                token = strtok(0, delimiter);
+            }
         }
 
-        insert(knowledge_table, key, qn, ans);
-        free(qn);
-        free(ans);
-        key++;
-    }
+        // retrieve the question
+        if (!isspace(*token))
+            printf("Question: %s\n", token);
 
-    printf("%s\n", lookup(knowledge_table, 2));
+        while (token != 0) {
+            // Get the next line
+            token = strtok(0, delimiter);
+            // if the read file is an empty line
+            if (token == NULL)
+                break;
+                // if space exist
+            else if (isspace(*token))
+                break;
+            // get the answer
+            printf("Answer: %s\n", token);
+            break;
+
+        }
+    }
     fclose(f_PTR);
 
     return 0;
