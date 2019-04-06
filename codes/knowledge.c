@@ -87,7 +87,6 @@ int knowledge_put(const char *intent, const char *entity, const char *response) 
  * Returns: the number of entity/response pairs successful read from the file
  */
 int knowledge_read(FILE *f) {
-    //       load D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/ICT1002_Chat_Bot/codes/test.ini
     // file pointer 
     FILE *f_PTR;
 
@@ -129,7 +128,7 @@ int knowledge_read(FILE *f) {
         insert(knowledge_table, key, qn, ans);
         key++;
     }
-
+    printf("%s\n", lookup(knowledge_table, 10));
     fclose(f_PTR);
 
     return 0;
