@@ -59,7 +59,8 @@ void knowledge_write(FILE *f);
 /* functions defined in hash_table.c */
 typedef struct node {
     int key;
-    char *val;
+    char *question;
+    char *answer;
     struct node *next;
 } Dict;
 
@@ -70,7 +71,7 @@ typedef struct table {
 
 Table *createTable(int size);
 int hashCode(Table *t, int key);
-void insert(Table *t, int key, char *val);
+void insert(Table *t, int key, char *question, char *answer);
 char *lookup(Table *t, int key);
 
 #endif

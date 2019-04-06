@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include "chat1002.h"
 
@@ -26,7 +27,7 @@ int hashCode(Table *t, int key) {
     return key % t->size;
 }
 
-void insert(Table *t, int key, char *val) {
+void insert(Table *t, int key, char *question, char *answer) {
     int pos = hashCode(t, key);
     Dict *list = t->list[pos];
     Dict *newNode = (Dict *) malloc(sizeof(Dict));
@@ -35,13 +36,15 @@ void insert(Table *t, int key, char *val) {
     // Override the value if the key provided is the same as the one that exist in the list
     while (temp) {
         if (temp->key == key) {
-            temp->val = val;
+            temp->question = question;
+            temp->answer = answer;
             return;
         }
         temp = temp->next;
     }
     newNode->key = key;
-    newNode->val = val;
+    newNode->question = question;
+    newNode->answer = answer;
     newNode->next = list;
     t->list[pos] = newNode;
 }
@@ -52,7 +55,12 @@ char *lookup(Table *t, int key) {
     Dict *temp = list;
     while (temp) {
         if (temp->key == key) {
-            return temp-> val;
+            char question[MAX_INPUT], answer[MAX_INPUT];
+            strcpy(question, temp->question);
+            strcpy(answer, temp->answer);
+
+            printf("Question: %s\n", question);
+            printf("Answer: %s\n", answer);
         }
         temp = temp->next;
     }
