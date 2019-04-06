@@ -115,7 +115,6 @@ int knowledge_read(FILE *f) {
         return 0;
     }
 
-    int key = 1; // variable to determine size of hash table to create
     char delimiter[] = "[]=\n"; // delimiter
 
     while (!feof(f_PTR) && fgets(sentence, sizeof(sentence), f_PTR)) {
