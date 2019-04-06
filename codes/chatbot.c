@@ -175,10 +175,6 @@ int chatbot_do_load(int inc, char *inv[], char *response, int n) {
     char file_name[MAX_INPUT];
 
     strcpy(file_name, inv[1]);
-    strcat(file_name, " ");
-    strcat(file_name, inv[2]); //TOREMOVE
-    strcat(file_name, " ");
-    strcat(file_name, inv[3]);
 
     // read the contents of the file
     knowledge_read((FILE *) file_name);
