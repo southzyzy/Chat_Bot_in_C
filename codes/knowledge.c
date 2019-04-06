@@ -98,26 +98,28 @@ int knowledge_read(FILE *f) {
     }
 
     char delimiter[] = "[]=\n"; // delimiter
+    char *intent = malloc(sizeof(sentence));
 
     while (!feof(f_PTR) && fgets(sentence, sizeof(sentence), f_PTR)) {
-        char *qn = malloc(sizeof(sentence));
-        char *ans = malloc(sizeof(sentence));
-        char *intent = malloc(sizeof(sentence));
+        char *entity = malloc(sizeof(sentence));
+        char *response = malloc(sizeof(sentence));
 
         char *token = strtok(sentence, delimiter);
 
         for (int i = 0; i < 3; i++) {
             if (strstr(token, comparsion_header[i])) {
+
                 // Get the intent of question
-                printf("Intent: %s\n", token);
+                strcpy(intent, token);
                 // move to the next line
                 token = strtok(0, delimiter);
             }
         }
 
         // retrieve the question
-        if (!isspace(*token))
-            printf("Question: %s\n", token);
+        if (!isspace(*token)) {
+            strcpy(entity, token);
+        }
 
         while (token != 0) {
             // Get the next line
@@ -129,13 +131,16 @@ int knowledge_read(FILE *f) {
             else if (isspace(*token))
                 break;
             // get the answer
-            printf("Answer: %s\n", token);
-            break;
+            strcpy(response, token);
 
+            // Insert into the linked list
+            knowledge = insertNode(knowledge, intent, entity, response);
+            break;
         }
     }
-
     fclose(f_PTR);
+
+
     return 0;
 }
 

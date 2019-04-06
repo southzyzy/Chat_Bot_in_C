@@ -62,37 +62,29 @@ void deleteLinkedList(node *head) {
 }
 
 /*Get answer based on intent filter and entity filter*/
-char *getAnswer(node *head, const char *intent, const char *entity)
-{
-	node *cursor = head;
-	// tolower(intent);
-	// tolower(entity);
-	if(cursor != NULL)
-	{
-		/*To check single cursors*/
-		if(cursor->next == NULL)
-		{
-			if(strcmp(intent,cursor->intent) == 0)
-			{
-				if(strcmp(entity,cursor->entity) == 0)
-				{
-					return cursor->answer;
-				}
-			}
-		}
-		while(cursor->next != NULL)
-		{
-			if(strcmp(intent,cursor->intent) == 0)
-			{
-				if(strcmp(entity,cursor->entity) == 0)
-				{
-					return cursor->answer;
-				}
-			}
-			cursor = cursor->next;
-		}
-	}
-	return NULL;
+char *getAnswer(node *head, const char *intent, const char *entity) {
+    node *cursor = head;
+    // tolower(intent);
+    // tolower(entity);
+    if (cursor != NULL) {
+        /*To check single cursors*/
+        if (cursor->next == NULL) {
+            if (strcmp(intent, cursor->intent) == 0) {
+                if (strcmp(entity, cursor->entity) == 0) {
+                    return cursor->answer;
+                }
+            }
+        }
+        while (cursor->next != NULL) {
+            if (strcmp(intent, cursor->intent) == 0) {
+                if (strcmp(entity, cursor->entity) == 0) {
+                    return cursor->answer;
+                }
+            }
+            cursor = cursor->next;
+        }
+    }
+    return NULL;
 }
 
 /*Lowercase everything to check.*/
