@@ -1,21 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct node {
-    int key;
-    char *val;
-    struct node *next;
-} Dict;
-
-typedef struct table {
-    int size;
-    Dict **list;
-} Table;
-
-/* Table *createTable(int size);
-int hashCode(Table *t, int key);
-void insert(Table *t, int key, char *val);
-char *lookup(Table *t, int key); */
+#include "chat1002.h"
 
 
 /* int main() {
