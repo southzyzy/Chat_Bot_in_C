@@ -114,7 +114,7 @@ int knowledge_read(FILE *f)
 
     char *comparsion_header[] = {"[who]"};
 
-    
+
 
 
 
@@ -157,17 +157,22 @@ int knowledge_read(FILE *f)
                         token = strtok(NULL, delimiter);
                     }
 
-                    count += 1;
+                    //count += 1;
+
+                    // for debugging 
+                    //printf("%d\n", count);
+                    //printf("%s\n", qn);
+                    //printf("%s", ans);
 
                     insert(knowledge_table, count, qn, ans);
+                    count += 1;
                 }
             }
         }
         fclose(f_PTR);
     }
 
-
-    printf("%s\n", lookup(knowledge_table, 1));
+    printf("%s\n", lookup(knowledge_table, 5));
 
     
     return 0;
