@@ -172,7 +172,7 @@ int chatbot_is_load(const char *intent) {
 int chatbot_do_load(int inc, char *inv[], char *response, int n) {
     // variable to store the name of the file 
     char file_name[10];
-    
+
     strcpy(file_name, inv[1]);
 
     // read the contents of the file 
@@ -192,15 +192,16 @@ int chatbot_do_load(int inc, char *inv[], char *response, int n) {
  */
 int chatbot_is_question(const char *intent) {
     // not done
-	// char *question_key_words[] = {"what", "where", "who"};
+    // char *question_key_words[] = {"what", "where", "who"};
 
     // for (int i = 0; i < 3; i++) {
-        // if (strcmp(intent, question_key_words[i]) == 0) {
-            // return 1;
-        // }
+    // if (strcmp(intent, question_key_words[i]) == 0) {
+    // return 1;
     // }
-	// return 0;
-	return compare_token(intent, "what") == 0 || compare_token(intent, "where") == 0 || compare_token(intent, "who") == 0;
+    // }
+    // return 0;
+    return compare_token(intent, "what") == 0 || compare_token(intent, "where") == 0 ||
+           compare_token(intent, "who") == 0;
 }
 
 
@@ -219,28 +220,23 @@ int chatbot_is_question(const char *intent) {
  */
 int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be implemented 
 {
-    char *after_question_words[] = {"is","are"};
-	char entity[MAX_RESPONSE] = "";
-	
-	//Get the entity.
-	for(int i = 2; i < inc; i++)
-	{
-			strcat(entity,inv[i]);
-			if(i != inc-1)
-			{
-				strcat(entity," ");
-			}
-		
-	}
-	if(knowledge_get(inv[0], entity, response, n))
-	{
+    char *after_question_words[] = {"is", "are"};
+    char entity[MAX_RESPONSE] = "";
+
+    //Get the entity.
+    for (int i = 2; i < inc; i++) {
+        strcat(entity, inv[i]);
+        if (i != inc - 1) {
+            strcat(entity, " ");
+        }
+
+    }
+    if (knowledge_get(inv[0], entity, response, n)) {
         return 0;
-		//return knowledge_put(inv[0],entity, response);
-	}
-	else
-	{
-		return 0;
-	}
+        //return knowledge_put(inv[0],entity, response);
+    } else {
+        return 0;
+    }
     // char *question_key_words[] = {"what", "where", "who"};
 
     // printf("%d\n", inc);
@@ -268,12 +264,12 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
     //     snprintf(response, n, "This is a qn");
     //     return 0;
     // }
-    
-
-  
 
 
- 
+
+
+
+
 
 
 
@@ -378,10 +374,7 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 int chatbot_is_smalltalk(const char *intent) {
     /* Load the small talk list and append it into the hash_table */
     FILE *fp;
-    char file[256];
-
-    // construct the file name
-    snprintf(file, sizeof(file), "<dir>/data/Small_Talk_Questions.txt");
+    char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/test/data/Small_Talk_Questions.txt";
 
     // Open the file and append the small file question list
     fp = fopen(file, "r");
@@ -392,7 +385,7 @@ int chatbot_is_smalltalk(const char *intent) {
         return 0;
     }
 
-    char line[256];
+    char line[MAX_INPUT];
     char delim[] = "::";
     int qn_counter = 1; // even number is Question , odd number is the answer
 
@@ -430,11 +423,17 @@ int chatbot_is_smalltalk(const char *intent) {
  *   1, if the chatbot should stop chatting (e.g. the smalltalk was "goodbye" etc.)
  */
 int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
-    FILE *fp;
-    char file[256];
+    // construct the question input by user
+    char question[MAX_INPUT] = "";
+    for (int i = 0; i< (int) sizeof(*inv); i++) {
+        if (inv[i] == (char *) '\n' || inv[i] == NULL)
+            break;
+        strcat(question, inv[i]);
+        strcat(question, " ");
+    }
 
-    // construct the file name
-    snprintf(file, sizeof(file), "<dir>/data/Small_Talk_Questions.txt");
+    FILE *fp;
+    char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/test/data/Small_Talk_Questions.txt";
 
     // Open the file and append the small file question list
     fp = fopen(file, "r");
@@ -445,7 +444,7 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
         return 0;
     }
 
-    char line[256];
+    char line[MAX_INPUT];
     char delim[] = "::";
     int qn_counter = 1; // even number is Question , odd number is the answer
 
@@ -453,8 +452,8 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
         char *ptr = strtok(line, delim);
         // Checks for delimeter
         while (ptr != 0) {
-            if (strstr(ptr, inv[0]) != NULL) {
-                ptr = strtok(0, delim); // reset the delim
+            if (strstr(question, ptr) != NULL) {
+                ptr = strtok(0, delim); // get the answer
                 snprintf(response, n, ptr);
             }
             // else continues to find the question
