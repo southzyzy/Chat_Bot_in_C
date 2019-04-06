@@ -172,12 +172,16 @@ int chatbot_is_load(const char *intent) {
  */
 int chatbot_do_load(int inc, char *inv[], char *response, int n) {
     // variable to store the name of the file
-    char file_name[10];
+    char file_name[MAX_INPUT];
 
     strcpy(file_name, inv[1]);
+    strcat(file_name, " ");
+    strcat(file_name, inv[2]); //TOREMOVE
+    strcat(file_name, " ");
+    strcat(file_name, inv[3]);
 
     // read the contents of the file
-    knowledge_read(file_name);
+    knowledge_read((FILE *) file_name);
 }
 
 
@@ -453,9 +457,8 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
 
     char line[MAX_INPUT];
     char delim[] = "::";
-    int qn_counter = 1; // even number is Question , odd number is the answer
 
-    while (fgets(line, sizeof(line), fp)) {
+    while (fgets(line, sizeof(line), fp) && !feof(fp)) {
         char *ptr = strtok(line, delim);
         // Checks for delimeter
         while (ptr != 0) {
@@ -463,8 +466,6 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
                 ptr = strtok(0, delim); // get the answer
                 snprintf(response, n, ptr);
             }
-            // else continues to find the question
-            qn_counter++;
 
             // Use of strtok to split the :: variable and set strtok counter back to 0
             ptr = strtok(0, delim);

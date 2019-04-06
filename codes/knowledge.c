@@ -35,29 +35,22 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
 
     /* to be implemented */
     char reply[50] = "SIT is a university in Nanyang Polytechnic.";
-	char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
-	char reply3[50] = "Introduction to ICT.";
-	/* to be implemented */
-	if(compare_token(entity, "sit") == 0)
-	{
-		snprintf(response, n, "%s", reply);
-		return KB_OK;
-	}
-	else if(compare_token(entity, "the ICT Cluster") == 0)
-	{
-		snprintf(response, n, "%s", reply2);
-		return KB_OK;
-	}
-	else if(compare_token(entity, "ICT1001") == 0)
-	{
-		snprintf(response, n, "%s", reply3);
-		return KB_OK;
-	}
-	else
-	{
-		snprintf(response, n, "I don't know. What is '%s'?", entity);
-		return KB_NOTFOUND;
-	}
+    char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
+    char reply3[50] = "Introduction to ICT.";
+    /* to be implemented */
+    if (compare_token(entity, "sit") == 0) {
+        snprintf(response, n, "%s", reply);
+        return KB_OK;
+    } else if (compare_token(entity, "the ICT Cluster") == 0) {
+        snprintf(response, n, "%s", reply2);
+        return KB_OK;
+    } else if (compare_token(entity, "ICT1001") == 0) {
+        snprintf(response, n, "%s", reply3);
+        return KB_OK;
+    } else {
+        snprintf(response, n, "I don't know. What is '%s'?", entity);
+        return KB_NOTFOUND;
+    }
 }
 
 
@@ -93,91 +86,54 @@ int knowledge_put(const char *intent, const char *entity, const char *response) 
  *
  * Returns: the number of entity/response pairs successful read from the file
  */
-int knowledge_read(FILE *f) 
-{
+int knowledge_read(FILE *f) {
+    //       load D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/ICT1002_Chat_Bot/codes/test.ini
     // file pointer 
     FILE *f_PTR;
 
     // variable to store each line of txt file 
-    char sentence[400];
-
-    // variable to determine size of hash table to create 
-    int count = 1;
-
-    // create hash table
-    Table *knowledge_table = createTable(20);
-
-    // delimiter 
-    char delimiter[2] = "=";
-
-    char *token;
+    char sentence[MAX_INPUT];
 
     char *comparsion_header[] = {"[who]"};
 
+    f_PTR = fopen((const char *) f, "r");
 
-
-
-
-    f_PTR = fopen(f, "r");
+    // create hash table based on the size of the file
+    Table *knowledge_table = createTable(12);
 
     // Case 1: There is an issue opening the file 
-    if (f_PTR == NULL)
-    {
+    if (f_PTR == NULL) {
         printf("Error: There is an issue accessing the file.\n");
+        return 0;
     }
 
-    // Case 2: There is no issue opening the file 
-    else
-    {
-        while (!feof(f_PTR))
-        {
-            fgets(sentence, 400, f_PTR);
+    int key = 1; // variable to determine size of hash table to create
+    char delimiter[] = "="; // delimiter
 
-            if (feof(f_PTR))
-            {
-                break;
-            }
+    while (!feof(f_PTR) && fgets(sentence, sizeof(sentence), f_PTR)) {
+        // get the first token and store it
+        char *token = strtok(sentence, delimiter);
 
-            else
-            {
-                if (*sentence != '\n')
-                {
-                    // get the first token and store it
-                    token = strtok(sentence, delimiter);
-
-                    char qn[20];
-                    char ans[200];
-
-                    strcpy(qn, token);
-
-                    // Get the second token and store it 
-                    while(token != NULL) 
-                    {
-                        strcpy(ans, token);
-                        token = strtok(NULL, delimiter);
-                    }
-
-                    //count += 1;
-
-                    // for debugging 
-                    //printf("%d\n", count);
-                    //printf("%s\n", qn);
-                    //printf("%s", ans);
-
-                    insert(knowledge_table, count, qn, ans);
-                    count += 1;
-                }
-            }
+        char qn[MAX_INPUT], ans[MAX_INPUT];
+        strcpy(qn, token);
+        printf("%d. %s\n", key, qn);
+        
+        // Get the second token and store it
+        while (token != 0) {
+            token = strtok(0, delimiter);
+            strcpy(ans, token);
+            printf("%d. %s", key, ans);
+            break;
         }
-        fclose(f_PTR);
+
+        insert(knowledge_table, key, qn, ans);
+        key++;
     }
 
-    printf("%s\n", lookup(knowledge_table, 5));
+    fclose(f_PTR);
 
-    
     return 0;
 }
-
 
 
 /*

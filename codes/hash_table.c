@@ -4,13 +4,14 @@
 #include "chat1002.h"
 
 
-/* int main() {
+/*int main() {
     Table *t = createTable(5);
-    insert(t, 1, "Hello");
-    insert(t, 2, "World");
+    insert(t, 1, "SIT", "SIT is an autonomous university in Singapore.");
+    insert(t, 2, "the ICT Cluster", "The ICT Cluster offers degrees in software engineering, information security and telematics.");
+    insert(t, 3, "ICT1001", "Introduction to ICT.");
     printf("%s\n", lookup(t, 3));
     return 0;
-} */
+}*/
 
 Table *createTable(int size) {
     Table *t = (Table *) malloc(sizeof(Table));
@@ -55,13 +56,13 @@ char *lookup(Table *t, int key) {
     Dict *temp = list;
     while (temp) {
         if (temp->key == key) {
-            char question[MAX_INPUT], answer[MAX_INPUT];
-            strcpy(question, temp->question);
-            strcpy(answer, temp->answer);
+//            char question[MAX_INPUT], answer[MAX_INPUT];
+//            strcpy(question, temp->question);
+//            strcpy(answer, temp->answer);
 
-            printf("Question: %s\n", question);
-            printf("Answer: %s\n", answer);
-            return 1;
+//            printf("Question: %s\n", question);
+//            printf("Answer: %s\n", answer);
+            return temp->answer;
         }
         temp = temp->next;
     }
