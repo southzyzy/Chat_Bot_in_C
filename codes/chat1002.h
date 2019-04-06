@@ -53,9 +53,6 @@ int formatString(char *string);
 /* functions defined in knowledge.c */
 int knowledge_get(const char *intent, const char *entity, char *response, int n);
 int knowledge_put(const char *intent, const char *entity, const char *response);
-Table *knowledge_reset(Table *t);
-int knowledge_read(FILE *f);
-int knowledge_write(FILE *f, Table *t);
 
 /* functions defined in hash_table.c */
 typedef struct node {
@@ -74,5 +71,9 @@ Table *createTable(int size);
 int hashCode(Table *t, int key);
 void insert(Table *t, int key, char *question, char *answer);
 char *lookup(Table *t, int key);
+
+Table *knowledge_reset(Table *t);
+int knowledge_read(FILE *f);
+int knowledge_write(FILE *f, Table *t);
 
 #endif
