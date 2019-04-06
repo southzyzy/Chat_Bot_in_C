@@ -1,0 +1,39 @@
+hello::hello
+It's:: Indeed it is
+who are you::I am a chatbot
+your age::Hello World
+your birth date::Hello World
+are you busy::No
+can you help::Yes
+you are chatbot::What do you think
+your family::I got no family
+you are hungry::No
+are you married::No
+marry me::Sure
+you are my friend::Best friend
+are you ok::Are you okay
+you are real::Are you real
+significant other::I wish I can have one
+are you there::Always there for you
+cool::Cool
+good::Okacurrrrr
+thank you::You are welcome
+well done::My pleasure
+you are welcome::No you are not
+i do not care::So do i
+please::Dont be gay
+sorry::Dont be sorry
+what do you mean::Read again human
+haha::What is so funny
+goodbye::Bye Bye
+good evening::good evening
+good morning::good morning
+good night::good night
+how are you::I'm fine
+nice to meet you::Nice to meet you too
+nice to talk to you::My pleasure
+what is up::Ceiling
+i am bored::Too bad
+i am happy::Awesome
+i am sad::Too bad
+i am sleepy::Go sleep

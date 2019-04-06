@@ -381,7 +381,7 @@ int chatbot_is_smalltalk(const char *intent) {
     char file[256];
 
     // construct the file name
-    snprintf(file, sizeof(file), "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/test/data/Small_Talk_Questions.txt");
+    snprintf(file, sizeof(file), "<dir>/data/Small_Talk_Questions.txt");
 
     // Open the file and append the small file question list
     fp = fopen(file, "r");
@@ -434,7 +434,7 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     char file[256];
 
     // construct the file name
-    snprintf(file, sizeof(file), "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/test/data/Small_Talk_Questions.txt");
+    snprintf(file, sizeof(file), "<dir>/data/Small_Talk_Questions.txt");
 
     // Open the file and append the small file question list
     fp = fopen(file, "r");
