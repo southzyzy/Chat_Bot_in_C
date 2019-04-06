@@ -237,6 +237,7 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
         knowledge_put(inv[0], entity, response);
         //Change the buffer to thank the user rather than his inputs.
         snprintf(response, n, "Thank you.");
+
     }
     return 0;
 
@@ -276,7 +277,7 @@ int chatbot_is_reset(const char *intent) {
 int chatbot_do_reset(int inc, char *inv[], char *response, int n) {
 
     /* to be implemented */
-    //knowledge_reset(knowledge_table);
+    knowledge_reset();
     snprintf(response, n, "Chatbot reset.");
 
     return 0;
