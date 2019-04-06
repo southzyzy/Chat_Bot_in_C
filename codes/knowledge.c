@@ -117,7 +117,7 @@ int knowledge_read(FILE *f) {
         char qn[MAX_INPUT], ans[MAX_INPUT];
         strcpy(qn, token);
         printf("%d. %s\n", key, qn);
-        
+
         // Get the second token and store it
         while (token != 0) {
             token = strtok(0, delimiter);
