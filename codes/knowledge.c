@@ -169,10 +169,10 @@ int knowledge_write(FILE *f, Table *t) {
 			fprintf(f, "[what]");
 			Dict *tempd = temp->list[i];
 			while (tempd->next != NULL) {
-				fprintf(f, "%s=%s", tempd->question, tempd->answer)
+				fprintf(f, "%s=%s", tempd->question, tempd->answer);
 				counter += 1;
 			}
-			fprintf(f, "%s=%s", tempd->question, tempd->answer)
+			fprintf(f, "%s=%s", tempd->question, tempd->answer);
 			counter += 1;
 			printf("\n");
 		}
@@ -180,10 +180,10 @@ int knowledge_write(FILE *f, Table *t) {
 			fprintf(f, "[where]");
 			Dict *tempd = temp->list[i];
 			while (tempd->next != NULL) {
-				fprintf(f, "%s=%s", tempd->question, tempd->answer)
+				fprintf(f, "%s=%s", tempd->question, tempd->answer);
 				counter += 1;
 			}
-			fprintf(f, "%s=%s", tempd->question, tempd->answer)
+			fprintf(f, "%s=%s", tempd->question, tempd->answer);
 			counter += 1;
 			printf("\n");
 		}
@@ -191,10 +191,10 @@ int knowledge_write(FILE *f, Table *t) {
 			fprintf(f, "[who]");
 			Dict *tempd = temp->list[i];
 			while (tempd->next != NULL) {
-				fprintf(f, "%s=%s", tempd->question, tempd->answer)
+				fprintf(f, "%s=%s", tempd->question, tempd->answer);
 				counter += 1;
 			}
-			fprintf(f, "%s=%s", tempd->question, tempd->answer)
+			fprintf(f, "%s=%s", tempd->question, tempd->answer);
 			counter += 1;
 			printf("\n");
 		}
