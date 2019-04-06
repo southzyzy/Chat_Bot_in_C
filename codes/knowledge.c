@@ -39,7 +39,7 @@ node *knowledge = NULL;
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
 
     /* to be implemented */
-<<<<<<< Updated upstream
+    <<<<<<< Updated upstream
     // char reply[50] = "SIT is a university in Nanyang Polytechnic.";
     // char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
     // char reply3[50] = "Introduction to ICT.";
@@ -67,21 +67,18 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
         return KB_NOTFOUND;
     }
 
-=======
-	char *answer = getAnswer(knowledge, intent, entity);
+    =======
+    char *answer = getAnswer(knowledge, intent, entity);
 
-	/* to be implemented */
-	if(answer != NULL)
-	{
-		snprintf(response, n, "%s", answer);
-		return KB_OK;
-	}
-	else
-	{
-		return KB_NOTFOUND;
-	}
-	
->>>>>>> Stashed changes
+    /* to be implemented */
+    if (answer != NULL) {
+        snprintf(response, n, "%s", answer);
+        return KB_OK;
+    } else {
+        return KB_NOTFOUND;
+    }
+
+    >>>>>>> Stashed changes
 }
 
 
@@ -103,14 +100,9 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
 int knowledge_put(const char *intent, const char *entity, const char *response) {
 
     /* to be implemented */
-<<<<<<< Updated upstream
     knowledge = insertNode(knowledge, intent, entity, response);
     printLinkedList(knowledge);
     return KB_OK;
-=======
-	knowledge = insertNode(knowledge, intent, entity, response);
-	return KB_OK;
->>>>>>> Stashed changes
 }
 
 /*
@@ -123,7 +115,6 @@ int knowledge_put(const char *intent, const char *entity, const char *response) 
  */
 int knowledge_read(FILE *f) {
     // file pointer
-<<<<<<< Updated upstream
     FILE *f_PTR;
 
     // variable to store each line of txt file
@@ -177,66 +168,6 @@ int knowledge_read(FILE *f) {
         }
     }
     fclose(f_PTR);
-=======
-    // FILE *f_PTR;
-
-    // // variable to store each line of txt file
-    // char sentence[MAX_INPUT];
-
-    // char *comparsion_header[] = {"who", "where", "what"};
-
-    // char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/hash_table/test.ini";
-    // f_PTR = fopen((const char *) file, "rb");
-
-    // // create hash table based on the size of the file
-    // Table *knowledge_table = createTable(sizeof(f_PTR));
-
-    // // Case 1: There is an issue opening the file
-    // if (f_PTR == NULL) {
-    //     printf("Error: There is an issue accessing the file.\n");
-    //     return 0;
-    // }
-
-    // int key = 1; // variable to determine size of hash table to create
-    // char delimiter[] = "[]=\n"; // delimiter
-
-    // while (!feof(f_PTR) && fgets(sentence, sizeof(sentence), f_PTR)) {
-    //     char *qn = malloc(sizeof(sentence));
-    //     char *ans = malloc(sizeof(sentence));
-    //     char *intent = malloc(sizeof(sentence));
-
-    //     char *token = strtok(sentence, delimiter);
-
-    //     for (int i = 0; i < 3; i++) {
-    //         if (strstr(token, comparsion_header[i])) {
-    //             // Get the intent of question
-    //             printf("Intent: %s\n", token);
-    //             // move to the next line
-    //             token = strtok(0, delimiter);
-    //         }
-    //     }
-
-    //     // retrieve the question
-    //     if (!isspace(*token))
-    //         printf("Question: %s\n", token);
-
-    //     while (token != 0) {
-    //         // Get the next line
-    //         token = strtok(0, delimiter);
-    //         // if the read file is an empty line
-    //         if (token == NULL)
-    //             break;
-    //             // if space exist
-    //         else if (isspace(*token))
-    //             break;
-    //         // get the answer
-    //         printf("Answer: %s\n", token);
-    //         break;
-
-    //     }
-    // }
-    // fclose(f_PTR);
->>>>>>> Stashed changes
 
     return 0;
 }
@@ -246,37 +177,20 @@ int knowledge_read(FILE *f) {
  * Reset the knowledge base, removing all know entitities from all intents.
  */
 void knowledge_reset() {
-
-<<<<<<< Updated upstream
-    // /* to be implemented */
-    // while (t == NULL) {
-    // }
-
-    // for (int i = 0; i < t->size; i++) {
-    // 	free(t->list[i]);
-    // }
-
-    //return NULL;
-=======
-	/* to be implemented */
-	if(knowledge != NULL)
-	{
-		node *head = knowledge;
-		node *temp = head->next;
-		while(head->next != NULL)
-		{
-			printLinkedList(head);
-			head->next = NULL;
-			free(head);
-			head = temp;
-			temp = head->next;
-		}
-	}
-	else
-	{
-		knowledge = NULL;
-	}	
->>>>>>> Stashed changes
+    /* to be implemented */
+    if (knowledge != NULL) {
+        node *head = knowledge;
+        node *temp = head->next;
+        while (head->next != NULL) {
+            printLinkedList(head);
+            head->next = NULL;
+            free(head);
+            head = temp;
+            temp = head->next;
+        }
+    } else {
+        knowledge = NULL;
+    }
 }
 
 
