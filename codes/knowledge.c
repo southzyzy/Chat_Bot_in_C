@@ -39,27 +39,8 @@ node *knowledge = NULL;
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
 
     /* to be implemented */
-    <<<<<<< Updated upstream
-    // char reply[50] = "SIT is a university in Nanyang Polytechnic.";
-    // char reply2[100] = "The ICT Cluster offers degrees in software engineering, information security and telematics.";
-    // char reply3[50] = "Introduction to ICT.";
     char *answer = getAnswer(knowledge, intent, entity);
     /* to be implemented */
-    // if(compare_token(entity, "sit") == 0)
-    // {
-    // 	snprintf(response, n, "%s", reply);
-    // 	return KB_OK;
-    // }
-    // else if(compare_token(entity, "the ICT Cluster") == 0)
-    // {
-    // 	snprintf(response, n, "%s", reply2);
-    // 	return KB_OK;
-    // }
-    // else if(compare_token(entity, "ICT1001") == 0)
-    // {
-    // 	snprintf(response, n, "%s", reply3);
-    // 	return KB_OK;
-    // }
     if (answer != NULL) {
         snprintf(response, n, "%s", answer);
         return KB_OK;
@@ -77,8 +58,6 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
     } else {
         return KB_NOTFOUND;
     }
-
-    >>>>>>> Stashed changes
 }
 
 
@@ -101,7 +80,6 @@ int knowledge_put(const char *intent, const char *entity, const char *response) 
 
     /* to be implemented */
     knowledge = insertNode(knowledge, intent, entity, response);
-    printLinkedList(knowledge);
     return KB_OK;
 }
 
