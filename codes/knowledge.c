@@ -164,7 +164,7 @@ int knowledge_write(FILE *f, Table *t) {
 	Table *temp = t;
 	int counter = 0;
 	/* to be implemented */
-	for (int i = 0; i < tempt->size; i++) {
+	for (int i = 0; i < temp->size; i++) {
 		if (i == 0) {
 			fprintf(f, "[what]");
 			Dict *tempd = temp->list[i];
@@ -174,7 +174,7 @@ int knowledge_write(FILE *f, Table *t) {
 			}
 			fprintf(f, "%s=%s", tempd->question, tempd->answer)
 			counter += 1;
-			fprintf("\n");
+			printf("\n");
 		}
 		else if (i == 1) {
 			fprintf(f, "[where]");
@@ -185,7 +185,7 @@ int knowledge_write(FILE *f, Table *t) {
 			}
 			fprintf(f, "%s=%s", tempd->question, tempd->answer)
 			counter += 1;
-			fprintf("\n");
+			printf("\n");
 		}
 		else if (i == 2) {
 			fprintf(f, "[who]");
@@ -196,7 +196,7 @@ int knowledge_write(FILE *f, Table *t) {
 			}
 			fprintf(f, "%s=%s", tempd->question, tempd->answer)
 			counter += 1;
-			fprintf("\n");
+			printf("\n");
 		}
 	}
 
