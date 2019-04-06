@@ -5,9 +5,9 @@ your age::Hello World
 your birth date::Hello World
 are you busy::No
 can you help::Yes
-you are chatbot::What do you think
+are you a chatbot::What do you think
 your family::I got no family
-you are hungry::No
+are you hungry::No
 are you married::No
 marry me::Sure
 you are my friend::Best friend
