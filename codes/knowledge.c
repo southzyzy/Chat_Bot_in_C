@@ -114,7 +114,6 @@ int knowledge_read(FILE *f)
 
     char *comparsion_header[] = {"[who]"};
 
-    
 
 
 
@@ -132,7 +131,7 @@ int knowledge_read(FILE *f)
     {
         while (!feof(f_PTR))
         {
-            fgets(sentence, 350, f_PTR);
+            fgets(sentence, 400, f_PTR);
 
             if (feof(f_PTR))
             {
@@ -145,21 +144,36 @@ int knowledge_read(FILE *f)
                 {
                     // get the first token and store it
                     token = strtok(sentence, delimiter);
-                    strcpy(first_token, token);
 
-                    // for troubleshooting
-                    printf("%s\n", first_token);
-                
+                    char qn[20];
+                    char ans[200];
+
+                    strcpy(qn, token);
+
+                    // Get the second token and store it 
+                    while(token != NULL) 
+                    {
+                        strcpy(ans, token);
+                        token = strtok(NULL, delimiter);
+                    }
+
+                    //count += 1;
+
+                    // for debugging 
+                    //printf("%d\n", count);
+                    //printf("%s\n", qn);
+                    //printf("%s", ans);
+
+                    insert(knowledge_table, count, qn, ans);
                     count += 1;
-
-                    insert(knowledge_table, count, first_token);
                 }
             }
         }
         fclose(f_PTR);
     }
 
-   //printf("%d\n", count);
+    printf("%s\n", lookup(knowledge_table, 5));
+
     
     return 0;
 }
