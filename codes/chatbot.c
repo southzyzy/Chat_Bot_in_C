@@ -363,12 +363,12 @@ int chatbot_is_smalltalk(const char *intent) {
 
     // return error if the file cannot be open
     if (fp == NULL) {
+        printf("Unable to open %s\n", file);
         return 0;
     }
 
     char line[MAX_INPUT];
     char delim[] = "::";
-    int qn_counter = 1; // even number is Question , odd number is the answer
 
     while (fgets(line, sizeof(line), fp)) {
         char *ptr = strtok(line, delim);
@@ -378,8 +378,6 @@ int chatbot_is_smalltalk(const char *intent) {
                 fclose(fp);
                 return 1;
             }
-            // else continues to find the question
-            qn_counter++;
 
             // Use of strtok to split the :: variable and set strtok counter back to 0
             ptr = strtok(0, delim);
@@ -422,6 +420,7 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
 
     // return error if the file cannot be open
     if (fp == NULL) {
+        printf("Unable to open %s\n", file);
         return 0;
     }
 
