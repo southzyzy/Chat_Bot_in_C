@@ -315,14 +315,13 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 
     /* to be implemented */
     FILE *to_save_file; // initialise file pointer
-    char *filename = (char *) malloc(MAX_INPUT); // initialise file name as malloc
-
-    strcpy(filename, inv[1]); // copy file name
+    char filename[MAX_INPUT]; // initialise file name as malloc
 
     // if the respond is save as, free the malloc and assign it to the right path directory
-    if (strstr(filename, "as") != NULL) {
-        free(filename);
+    if (strstr(inv[1], "as") != NULL) {
         strcpy(filename, inv[2]);
+    } else {
+        strcpy(filename, inv[1]);
     }
 
     to_save_file = fopen(filename, "w");
