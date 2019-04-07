@@ -198,15 +198,6 @@ int chatbot_do_load(int inc, char *inv[], char *response, int n) {
  *  0, otherwise
  */
 int chatbot_is_question(const char *intent) {
-    // not done
-    // char *question_key_words[] = {"what", "where", "who"};
-
-    // for (int i = 0; i < 3; i++) {
-    // if (strcmp(intent, question_key_words[i]) == 0) {
-    // return 1;
-    // }
-    // }
-    // return 0;
     return compare_token(intent, "what") == 0 || compare_token(intent, "where") == 0 ||
            compare_token(intent, "who") == 0;
 }
@@ -227,7 +218,7 @@ int chatbot_is_question(const char *intent) {
  */
 int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be implemented 
 {
-    char *after_question_words[] = {"is", "are"};
+    char *after_question_words[] = {"is", "are", ""};
     char entity[MAX_RESPONSE] = "";
 
     //Get the entity.
@@ -239,7 +230,7 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
 
     }
     if (knowledge_get(inv[0], entity, response, n)) {
-        prompt_user(response, n, "I don't know. What is '%s'?", entity);
+        prompt_user(response, n, "I don't know. %s is '%s'?", inv[0], entity);
         knowledge_put(inv[0], entity, response);
         //Change the buffer to thank the user rather than his inputs.
         snprintf(response, n, "Thank you.");

@@ -159,6 +159,8 @@ void knowledge_reset() {
             head = temp;
             temp = head->next;
         }
+        //Set the first one to null as well.
+        head = NULL;
     } else {
         knowledge = NULL;
     }
