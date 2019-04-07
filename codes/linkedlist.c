@@ -4,17 +4,11 @@
 #include <ctype.h>
 #include "chat1002.h"
 
-typedef struct NODE {
-    char intent[32];
-    char entity[64];
-    char answer[256];
-    struct NODE *next;
-} node;
-
-void printLinkedList(node *head);
-void deleteLinkedList(node *head);
-node *insertNode(node *head, const char *intent, const char *entity, const char *answer);
-node *getNode(node *head, const char *intent, const char *entity);
+/* Linked list concept that holds the functions to support knowledge.c
+ * The buffer is initialized as a global variable within knowledge.c
+ * And every editting is done within the file
+ * Methods here involve retrieval only.
+*/
 
 /*Use this to check the total structure of the list*/
 void printLinkedList(node *head) {

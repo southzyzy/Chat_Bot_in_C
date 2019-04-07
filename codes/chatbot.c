@@ -52,9 +52,7 @@
  * Returns: the name of the chatbot as a null-terminated string
  */
 const char *chatbot_botname() {
-
     return "Chatbot";
-
 }
 
 
@@ -64,9 +62,7 @@ const char *chatbot_botname() {
  * Returns: the name of the user as a null-terminated string
  */
 const char *chatbot_username() {
-
     return "User";
-
 }
 
 
@@ -120,9 +116,7 @@ int chatbot_main(int inc, char *inv[], char *response, int n) {
  *  0, otherwise
  */
 int chatbot_is_exit(const char *intent) {
-
     return compare_token(intent, "exit") == 0 || compare_token(intent, "quit") == 0;
-
 }
 
 
@@ -136,11 +130,8 @@ int chatbot_is_exit(const char *intent) {
  *   0 (the chatbot always continues chatting after a question)
  */
 int chatbot_do_exit(int inc, char *inv[], char *response, int n) {
-
     snprintf(response, n, "Goodbye!");
-
     return 1;
-
 }
 
 
@@ -158,7 +149,6 @@ int chatbot_is_load(const char *intent) {
     if (strcmp(intent, "load") == 0) {
         return 1;
     }
-
     return 0;
 }
 
@@ -249,7 +239,7 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
         prompt_user(response, n, "I don't know. %s is %s?", inv[0], entity);
         if(knowledge_put(inv[0], entity, response) == 0)
         {
-            //Change the buffer to thank the user rather than his inputs.
+            //Change the buffer to thank the user rather than displaying his inputs.
             snprintf(response, n, "Thank you.");
         }
         else
@@ -426,7 +416,6 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     }
 
     FILE *fp;
-//    char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/ICT1002_Chat_Bot/data/Small_Talk_Questions.txt";
     char file[MAX_INPUT] = "../data/Small_Talk_Questions.txt";
 
     // Open the file and append the small file question list

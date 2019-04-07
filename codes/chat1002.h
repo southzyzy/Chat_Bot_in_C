@@ -57,7 +57,16 @@ int knowledge_read(FILE *f);
 void knowledge_reset();
 
 /* functions defined in linkedlist.c */
-//void lowerWord(char *word);
+typedef struct NODE {
+    char intent[32];
+    char entity[64];
+    char answer[256];
+    struct NODE *next;
+} node;
 
+void printLinkedList(node *head);
+void deleteLinkedList(node *head);
+node *insertNode(node *head, const char *intent, const char *entity, const char *answer);
+node *getNode(node *head, const char *intent, const char *entity);
 
 #endif

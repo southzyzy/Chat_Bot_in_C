@@ -36,7 +36,7 @@ node *knowledge = NULL;
  *   KB_INVALID, if 'intent' is not a recognised question word
  */
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
-
+    //Find the answer to the question. If nothing found, answer is NULL.
     char *answer = getAnswer(knowledge, intent, entity);
     if (answer != NULL) {
         snprintf(response, n, "%s", answer);
@@ -48,6 +48,7 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
     }
     else 
     {
+        //no answer found.
         return KB_NOTFOUND;
     }
 }
@@ -69,6 +70,7 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
  *   KB_INVALID, if the intent is not a valid question word
  */
 int knowledge_put(const char *intent, const char *entity, const char *response) {
+    //Empty response
     if(strlen(response) == 0)
     {
         return KB_INVALID;
@@ -164,18 +166,24 @@ int knowledge_read(FILE *f) {
  * Reset the knowledge base, removing all know entitities from all intents.
  */
 void knowledge_reset() {
-    /* to be implemented */
+    //Condition to prevent reseting of a NULL buffer at chatbot start
     if (knowledge != NULL) {
         node *head = knowledge;
         node *temp = head->next;
         while (head->next != NULL) {
+            //Remove link to next node
             head->next = NULL;
+            
+            //Remove the node
             free(head);
+
+            //Set head to the undeleted node (temp)
             head = temp;
             temp = head->next;
         }
-        //Set the first one to null as well.
+        //Set the head to null as well.
         head = NULL;
+        //Reset buffer.
         knowledge = head;
     } else {
         knowledge = NULL;
@@ -191,13 +199,17 @@ void knowledge_reset() {
  */
 int knowledge_write(FILE *f) {
     int count = 0;
-    char *intents[] = {"what", "where", "who"};
+    char *intents[] = {"what", "where", "who"}; //A list of the intents used in this project.
+    //Loop the write for the number of intents in intents.
     for(int i = 0; i < 3; i++)
     {
         node *cursor = knowledge;
+        //Write the intent's header
         fprintf(f, "[%s]\n", intents[i]);
         while(cursor != NULL)
         {
+            //Write every intent and its response that belongs to the current
+            //iteration of the intent.
             if(compare_token(cursor->intent, intents[i]) == 0)
             {
                 fprintf(f, "%s=%s\n",cursor->entity,cursor->answer);
@@ -205,6 +217,7 @@ int knowledge_write(FILE *f) {
             }
             cursor = cursor->next;
         }
+        //Seperate the intents
         fprintf(f, "\n");
     }
 
