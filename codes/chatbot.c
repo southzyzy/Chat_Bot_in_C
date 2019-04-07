@@ -175,16 +175,20 @@ int chatbot_is_load(const char *intent) {
 int chatbot_do_load(int inc, char *inv[], char *response, int n) {
     // variable to store the name of the file
     char file_name[MAX_INPUT];
-
-    strcpy(file_name, inv[1]);
-    /* To remove away once working */
-//    strcat(file_name, " ");
-//    strcat(file_name, inv[2]);
-//    strcat(file_name, " ");
-//    strcat(file_name, inv[3]);
-
-    // read the contents of the file
-    knowledge_read((FILE *) file_name);
+    int count;
+    if(inv[1] != NULL)
+    {
+        strcpy(file_name, inv[1]);
+        // read the contents of the file
+        count = knowledge_read((FILE *) file_name);
+        snprintf(response, n, "Read %d responses from %s.", count, file_name);
+    }
+    else
+    {
+        snprintf(response, n, "Sorry, could not open that file. Please specify the full filename (i.e sample.ini)!");
+    }
+    
+    return 0;
 }
 
 
@@ -219,11 +223,22 @@ int chatbot_is_question(const char *intent) {
  */
 int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be implemented 
 {
-    char *after_question_words[] = {"is", "are", ""};
+    char *after_question_words[] = {"is", "are"};
     char entity[MAX_RESPONSE] = "";
-
+    int loop = 0;
+    int entityPos = 1;
+    //Ignore the words in after_question_words, which can vary based on the existance of the word.
+    while(loop < 2)
+    {
+        //Compare if they exist. If they do, then entity is in inv[2] onwards.
+        if(compare_token(inv[1],after_question_words[loop]) == 0)
+        {
+            entityPos += 1;
+        }
+        loop++;
+    }
     //Get the entity.
-    for (int i = 2; i < inc; i++) {
+    for (int i = entityPos; i < inc; i++) {
         strcat(entity, inv[i]);
         if (i != inc - 1) {
             strcat(entity, " ");
@@ -231,11 +246,16 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
 
     }
     if (knowledge_get(inv[0], entity, response, n)) {
-        prompt_user(response, n, "I don't know. %s is '%s'?", inv[0], entity);
-        knowledge_put(inv[0], entity, response);
-        //Change the buffer to thank the user rather than his inputs.
-        snprintf(response, n, "Thank you.");
-
+        prompt_user(response, n, "I don't know. %s is %s?", inv[0], entity);
+        if(knowledge_put(inv[0], entity, response) == 0)
+        {
+            //Change the buffer to thank the user rather than his inputs.
+            snprintf(response, n, "Thank you.");
+        }
+        else
+        {
+            snprintf(response, n, ":-(");
+        }
     }
     return 0;
 
@@ -253,13 +273,10 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
  *  0, otherwise
  */
 int chatbot_is_reset(const char *intent) {
-
-    /* to be implemented */
-    if (strcmp(intent, "reset") == 0) {
+    if (compare_token(intent, "reset") == 0) {
         return 1;
     }
     return 0;
-
 }
 
 
@@ -270,16 +287,12 @@ int chatbot_is_reset(const char *intent) {
  * function is used.
  *
  * Returns:
- *   0 (the chatbot always continues chatting after beign reset)
+ *   0 (the chatbot always continues chatting after being reset)
  */
 int chatbot_do_reset(int inc, char *inv[], char *response, int n) {
-
-    /* to be implemented */
     knowledge_reset();
     snprintf(response, n, "Chatbot reset.");
-
     return 0;
-
 }
 
 
@@ -296,7 +309,7 @@ int chatbot_do_reset(int inc, char *inv[], char *response, int n) {
 int chatbot_is_save(const char *intent) {
 
     /* to be implemented */
-    if (strcmp(intent, "save") == 0) {
+    if (compare_token(intent, "save") == 0) {
         return 1;
     }
     return 0;
@@ -317,17 +330,17 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 
     /* to be implemented */
     FILE *to_save_file;
-    char filename[MAX_INPUT];
-    snprintf(to_save_file, MAX_INPUT, "%s.ini", inv[1]);
+    char filename[MAX_INPUT] = "";
 
+    strcpy(filename, inv[1]);
     to_save_file = fopen(filename, "w");
     if (to_save_file == NULL) {
         snprintf(response, n, "Could not open file.");
         return 0;
     } else {
-        //int counter = knowledge_write(to_save_file, knowledge_table);
+        int count = knowledge_write(to_save_file);
         fclose(to_save_file);
-        snprintf(response, n, "Chatbot saved.");
+        snprintf(response, n, "My knowledge has been saved to %s.", filename);
         //snprintf(response, n, "%d lines written.", counter);
         return 0;
     }
@@ -452,7 +465,8 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     return 0;
 }
 
-int formatString(char *string) {
+//formatstring to change new line to null character
+void formatString(char *string) {
     // Remove the newline from fgets
     size_t ln = strlen(string) - 1;
     if (string[ln] == '\n') {

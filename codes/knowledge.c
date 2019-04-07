@@ -18,6 +18,8 @@
 #include "chat1002.h"
 #include "linkedlist.c"
 
+/* BUFFER FOR KNOWLEDGE.C */
+node *knowledge = NULL;
 
 /*
  * Get the response to a question.
@@ -33,18 +35,19 @@
  *   KB_NOTFOUND, if no response could be found
  *   KB_INVALID, if 'intent' is not a recognised question word
  */
-/* BUFFER FOR KNOWLEDGE.C */
-node *knowledge = NULL;
-
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
 
-    /* to be implemented */
     char *answer = getAnswer(knowledge, intent, entity);
-    /* to be implemented */
     if (answer != NULL) {
         snprintf(response, n, "%s", answer);
         return KB_OK;
-    } else {
+    } 
+    else if(compare_token(intent, "what") != 0 && compare_token(intent, "where") != 0 && compare_token(intent, "who") != 0)
+    {
+        return KB_INVALID;
+    }
+    else 
+    {
         return KB_NOTFOUND;
     }
 }
@@ -66,9 +69,22 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
  *   KB_INVALID, if the intent is not a valid question word
  */
 int knowledge_put(const char *intent, const char *entity, const char *response) {
-
-    /* to be implemented */
+    if(strlen(response) == 0)
+    {
+        return KB_INVALID;
+    }
+    else if(compare_token(intent, "what") != 0 && compare_token(intent, "where") != 0 && compare_token(intent, "who") != 0)
+    {
+        return KB_INVALID;
+    }
+    //Insert the new knowledge into knowledge buffer
     knowledge = insertNode(knowledge, intent, entity, response);
+    if(knowledge == NULL)
+    {
+        //Failed to memory allocate for a new node
+        return KB_NOMEM;
+    }
+    //Using KB_OK because KB_FOUND isn't defined.
     return KB_OK;
 }
 
@@ -86,10 +102,9 @@ int knowledge_read(FILE *f) {
 
     // variable to store each line of txt file
     char sentence[MAX_INPUT];
-
     char *comparsion_header[] = {"who", "where", "what"};
-
     f_PTR = fopen((const char *) f, "rb");
+    int count = 0;
 
     // Case 1: There is an issue opening the file
     if (f_PTR == NULL) {
@@ -135,12 +150,13 @@ int knowledge_read(FILE *f) {
 
             // Insert into the linked list
             knowledge = insertNode(knowledge, intent, entity, response);
+            count++;
             break;
         }
     }
     fclose(f_PTR);
 
-    return 0;
+    return count;
 }
 
 
@@ -153,7 +169,6 @@ void knowledge_reset() {
         node *head = knowledge;
         node *temp = head->next;
         while (head->next != NULL) {
-            printLinkedList(head);
             head->next = NULL;
             free(head);
             head = temp;
@@ -161,6 +176,7 @@ void knowledge_reset() {
         }
         //Set the first one to null as well.
         head = NULL;
+        knowledge = head;
     } else {
         knowledge = NULL;
     }
@@ -174,45 +190,23 @@ void knowledge_reset() {
  *   f - the file
  */
 int knowledge_write(FILE *f) {
+    int count = 0;
+    char *intents[] = {"what", "where", "who"};
+    for(int i = 0; i < 3; i++)
+    {
+        node *cursor = knowledge;
+        fprintf(f, "[%s]\n", intents[i]);
+        while(cursor != NULL)
+        {
+            if(compare_token(cursor->intent, intents[i]) == 0)
+            {
+                fprintf(f, "%s=%s\n",cursor->entity,cursor->answer);
+                count++;
+            }
+            cursor = cursor->next;
+        }
+        fprintf(f, "\n");
+    }
 
-    // Table *temp = t;
-    // int counter = 0;
-    // /* to be implemented */
-    // for (int i = 0; i < temp->size; i++) {
-    // 	if (i == 0) {
-    // 		fprintf(f, "[what]");
-    // 		Dict *tempd = temp->list[i];
-    // 		while (tempd->next != NULL) {
-    // 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
-    // 			counter += 1;
-    // 		}
-    // 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
-    // 		counter += 1;
-    // 		printf("\n");
-    // 	}
-    // 	else if (i == 1) {
-    // 		fprintf(f, "[where]");
-    // 		Dict *tempd = temp->list[i];
-    // 		while (tempd->next != NULL) {
-    // 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
-    // 			counter += 1;
-    // 		}
-    // 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
-    // 		counter += 1;
-    // 		printf("\n");
-    // 	}
-    // 	else if (i == 2) {
-    // 		fprintf(f, "[who]");
-    // 		Dict *tempd = temp->list[i];
-    // 		while (tempd->next != NULL) {
-    // 			fprintf(f, "%s=%s", tempd->question, tempd->answer);
-    // 			counter += 1;
-    // 		}
-    // 		fprintf(f, "%s=%s", tempd->question, tempd->answer);
-    // 		counter += 1;
-    // 		printf("\n");
-    // 	}
-    // }
-
-    return 0;
+    return count;
 }

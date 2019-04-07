@@ -4,15 +4,6 @@
 #include <ctype.h>
 #include "chat1002.h"
 
-// int main(){
-// 	node *head = NULL;
-
-// 	head=insertNode(head,"What","SIT","Just Sit.");
-// 	head=insertNode(head,"Where","SIT","In Nanyang Poly.");
-// 	head=insertNode(head,"Who","SIT","I'll do you better, why SIT?");
-// 	printLinkedList(head);
-// 	return 0;
-// }
 typedef struct NODE {
     char intent[32];
     char entity[64];
@@ -21,10 +12,9 @@ typedef struct NODE {
 } node;
 
 void printLinkedList(node *head);
-
 void deleteLinkedList(node *head);
-
-node *insertNode(node *head, char *intent, char *entity, char *answer);
+node *insertNode(node *head, const char *intent, const char *entity, const char *answer);
+node *getNode(node *head, const char *intent, const char *entity);
 
 /*Use this to check the total structure of the list*/
 void printLinkedList(node *head) {
@@ -39,45 +29,47 @@ void printLinkedList(node *head) {
 }
 
 /*Always inserts in front. Remember to put head to catch the node pointer from this method.*/
-node *insertNode(node *head, char *intent, char *entity, char *answer) {
+node *insertNode(node *head, const char *intent, const char *entity, const char *answer) 
+{
     node *newnode = (node *) malloc(sizeof(node));
-    newnode->next = head;
-    strcpy(newnode->intent, intent);
-    strcpy(newnode->entity, entity);
-    strcpy(newnode->answer, answer);
-
-    return (newnode);
-}
-
-/*Prototype delete end of list*/
-void deleteLinkedList(node *head) {
-    node *cursor = head;
-    node *temp;
-    while (cursor->next != NULL) {
-        temp = cursor;
-        cursor = cursor->next;
+    if(head != NULL)
+    {
+        //Check if a node of the same question and type already exist in the buffer
+        node *exist = getNode(head, intent, entity);
+        if(exist != NULL)
+        {
+            //Change the existing node's answer (load intent)
+            strcpy(exist->answer, answer);
+            return head;
+        }
+        else
+        {
+            //To end the route and create a new node instead
+            newnode->next = head;
+            strcpy(newnode->intent, intent);
+            strcpy(newnode->entity, entity);
+            strcpy(newnode->answer, answer);
+            return (newnode);
+        }
     }
-    temp->next = NULL;
-    free(cursor);
+    else
+    {
+        //Create a new node and insert into the front
+        newnode->next = head;
+        strcpy(newnode->intent, intent);
+        strcpy(newnode->entity, entity);
+        strcpy(newnode->answer, answer);
+        return (newnode);
+    }
 }
 
 /*Get answer based on intent filter and entity filter*/
 char *getAnswer(node *head, const char *intent, const char *entity) {
     node *cursor = head;
-    // tolower(intent);
-    // tolower(entity);
     if (cursor != NULL) {
-        /*To check single cursors*/
-        if (cursor->next == NULL) {
-            if (strcmp(intent, cursor->intent) == 0) {
-                if (strcmp(entity, cursor->entity) == 0) {
-                    return cursor->answer;
-                }
-            }
-        }
-        while (cursor->next != NULL) {
-            if (strcmp(intent, cursor->intent) == 0) {
-                if (strcmp(entity, cursor->entity) == 0) {
+        while (cursor != NULL) {
+            if (compare_token(intent, cursor->intent) == 0) {
+                if (compare_token(entity, cursor->entity) == 0) {
                     return cursor->answer;
                 }
             }
@@ -87,13 +79,19 @@ char *getAnswer(node *head, const char *intent, const char *entity) {
     return NULL;
 }
 
-/*Lowercase everything to check.*/
-// void lowerWord(char *word)
-// {
-// 	int i = 0;
-// 	while(word[i])
-// 	{
-// 		word[i] = tolower(word[i]);
-// 		i++;
-// 	}
-// }
+//Get existing Node (for insertion and load purposes)
+node *getNode(node *head, const char *intent, const char *entity) {
+    node *cursor = head;
+    if (cursor != NULL) {
+        /*To check multiple cursors*/
+        while (cursor != NULL) {
+            if (compare_token(intent, cursor->intent) == 0) {
+                if (compare_token(entity, cursor->entity) == 0) {
+                    return cursor;
+                }
+            }
+            cursor = cursor->next;
+        }
+    }
+    return NULL;
+}
