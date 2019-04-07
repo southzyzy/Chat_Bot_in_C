@@ -98,8 +98,9 @@ int knowledge_read(FILE *f) {
     }
 
     char delimiter[] = "[]=\n"; // delimiter
-    char *intent = malloc(sizeof(sentence));
+    char *intent = malloc(sizeof(sentence)); // construct the intent malloc size
 
+    // loop through the files
     while (!feof(f_PTR) && fgets(sentence, sizeof(sentence), f_PTR)) {
         char *entity = malloc(sizeof(sentence));
         char *response = malloc(sizeof(sentence));

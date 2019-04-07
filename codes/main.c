@@ -34,17 +34,17 @@ int main(int argc, char *argv[]) {
     chatbot_do_reset(1, inv, output, MAX_RESPONSE);
 
     /* print a welcome message */
-    char bot_name[MAX_INPUT], username[MAX_INPUT];
-    strcpy(bot_name, chatbot_botname());
-    strcpy(username, chatbot_username());
+//    char bot_name[MAX_INPUT], username[MAX_INPUT];
+//    strcpy(bot_name, chatbot_botname());
+//    strcpy(username, chatbot_username());
 
-    printf("%s: Hello, I'm %s.\n", bot_name, bot_name);
+    printf("%s: Hello, I'm %s.\n", chatbot_botname(), chatbot_botname());
 
     /* main command loop */
     do {
         do {
             /* read the line */
-            printf("%s: ", username);
+            printf("%s: ", chatbot_username());
             fgets(input, MAX_INPUT, stdin);
 
             /* split it into words */
@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
         /* invoke the chatbot */
 
         done = chatbot_main(inc, inv, output, MAX_RESPONSE);
-        printf("%s: %s\n", bot_name, output);
+        printf("%s: %s\n", chatbot_botname(), output);
 
     } while (!done);
 

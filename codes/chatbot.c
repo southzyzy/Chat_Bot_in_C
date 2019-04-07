@@ -52,20 +52,20 @@
  * Returns: the name of the chatbot as a null-terminated string
  */
 const char *chatbot_botname() {
-    char bot_name[MAX_INPUT];
-    char *name;
+//    char bot_name[MAX_INPUT];
+//    char *name;
+//
+//    printf("Please input Bot Name.");
+//    fgets(bot_name, MAX_INPUT, stdin);
+//    size_t ln = strlen(bot_name) - 1;
+//    bot_name[ln] = '\0';
+//
+//    name = bot_name;
+//
+//    if (*name == NULL)
+//        return "Chatbot";
 
-    printf("Please input Bot Name.");
-    fgets(bot_name, MAX_INPUT, stdin);
-    size_t ln = strlen(bot_name) - 1;
-    bot_name[ln] = '\0';
-
-    name = bot_name;
-
-    if (*name == NULL)
-        return "Chatbot";
-
-    return name;
+    return "Chatbot";
 
 }
 
@@ -76,20 +76,20 @@ const char *chatbot_botname() {
  * Returns: the name of the user as a null-terminated string
  */
 const char *chatbot_username() {
-    char user_name[MAX_INPUT];
-    char *name;
+//    char user_name[MAX_INPUT];
+//    char *name;
+//
+//    printf("Please input User Name.");
+//    fgets(user_name, MAX_INPUT, stdin);
+//    size_t ln = strlen(user_name) - 1;
+//    user_name[ln] = '\0';
+//
+//    name = user_name;
+//
+//    if (*name == NULL)
+//        return "User";
 
-    printf("Please input User Name.");
-    fgets(user_name, MAX_INPUT, stdin);
-    size_t ln = strlen(user_name) - 1;
-    user_name[ln] = '\0';
-
-    name = user_name;
-
-    if (*name == NULL)
-        return "User";
-
-    return name;
+    return "User";
 
 }
 
