@@ -109,7 +109,6 @@ int knowledge_read(FILE *f) {
 
         for (int i = 0; i < 3; i++) {
             if (strstr(token, comparsion_header[i])) {
-
                 // Get the intent of question
                 strcpy(intent, token);
                 // move to the next line

@@ -34,9 +34,6 @@ int main(int argc, char *argv[]) {
     chatbot_do_reset(1, inv, output, MAX_RESPONSE);
 
     /* print a welcome message */
-//    char bot_name[MAX_INPUT], username[MAX_INPUT];
-//    strcpy(bot_name, chatbot_botname());
-//    strcpy(username, chatbot_username());
 
     printf("%s: Hello, I'm %s.\n", chatbot_botname(), chatbot_botname());
 

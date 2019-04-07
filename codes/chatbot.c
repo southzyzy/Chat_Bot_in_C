@@ -52,18 +52,6 @@
  * Returns: the name of the chatbot as a null-terminated string
  */
 const char *chatbot_botname() {
-//    char bot_name[MAX_INPUT];
-//    char *name;
-//
-//    printf("Please input Bot Name.");
-//    fgets(bot_name, MAX_INPUT, stdin);
-//    size_t ln = strlen(bot_name) - 1;
-//    bot_name[ln] = '\0';
-//
-//    name = bot_name;
-//
-//    if (*name == NULL)
-//        return "Chatbot";
 
     return "Chatbot";
 
@@ -76,18 +64,6 @@ const char *chatbot_botname() {
  * Returns: the name of the user as a null-terminated string
  */
 const char *chatbot_username() {
-//    char user_name[MAX_INPUT];
-//    char *name;
-//
-//    printf("Please input User Name.");
-//    fgets(user_name, MAX_INPUT, stdin);
-//    size_t ln = strlen(user_name) - 1;
-//    user_name[ln] = '\0';
-//
-//    name = user_name;
-//
-//    if (*name == NULL)
-//        return "User";
 
     return "User";
 
@@ -453,23 +429,27 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     char delim[] = "::";
 
     while (fgets(line, sizeof(line), fp) && !feof(fp)) {
-        char *ptr = strtok(line, delim);
+        char *reponse = strtok(line, delim);
         // Checks for delimeter
-        while (ptr != 0) {
-            if (strstr(question, ptr) != NULL) {
-                ptr = strtok(0, delim); // get the answer
-                snprintf(response, n, ptr);
+        while (reponse != 0) {
+            if (strstr(question, reponse) != NULL) {
+                reponse = strtok(0, delim); // get to the next line
+
+                // Remove the newline when it return the response
+                size_t ln = strlen(reponse) - 1;
+                reponse[ln] = '\0';
+
+                snprintf(response, n, reponse);
             }
 
             // Use of strtok to split the :: variable and set strtok counter back to 0
-            ptr = strtok(0, delim);
+            reponse = strtok(0, delim);
         }
     }
 
     fclose(fp);
 
     return 0;
-
 }
 
 int formatString(char *string) {
