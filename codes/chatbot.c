@@ -332,11 +332,11 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
         knowledge_write(to_save_file);
         fclose(to_save_file);
         snprintf(response, n, "My knowledge has been saved to %s.", filename);
-        return 0;
+
     } else { // else throw error
         snprintf(response, n, "Could not open file.");
-        return 0;
     }
+    return 0;
 }
 
 
