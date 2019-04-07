@@ -66,8 +66,8 @@ typedef struct NODE {
 } node;
 
 void printLinkedList(node *head);
-void deleteLinkedList(node *head);
 node *insertNode(node *head, const char *intent, const char *entity, const char *answer);
+char *getAnswer(node *head, const char *intent, const char *entity);
 node *getNode(node *head, const char *intent, const char *entity);
 
 #endif
