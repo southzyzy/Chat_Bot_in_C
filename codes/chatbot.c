@@ -211,7 +211,7 @@ int chatbot_is_question(const char *intent) {
  *   0 (the chatbot always continues chatting after a question)
  */
 int chatbot_do_question(int inc, char *inv[], char *response, int n) {
-    /* To be implemented */
+    /* To be implemented */ // why got error?
 
     char *after_question_words[] = {"is", "are"};
     char entity[MAX_RESPONSE] = "";
