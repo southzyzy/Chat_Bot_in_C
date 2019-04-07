@@ -1,6 +1,5 @@
 hello::hello
 It's:: Indeed it is
-who are you::I am a chatbot
 your age::Hello World
 your birth date::Hello World
 are you busy::No
