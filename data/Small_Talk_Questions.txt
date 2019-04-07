@@ -1,5 +1,5 @@
 hello::hello
-It's:: Indeed it is
+it's:: Indeed it is
 your age::Hello World
 your birth date::Hello World
 are you busy::No

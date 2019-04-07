@@ -166,18 +166,17 @@ int chatbot_do_load(int inc, char *inv[], char *response, int n) {
     // variable to store the name of the file
     char file_name[MAX_INPUT];
     int count;
-    if(inv[1] != NULL)
-    {
+
+    if (inv[1] != NULL) {
         strcpy(file_name, inv[1]);
+
         // read the contents of the file
         count = knowledge_read((FILE *) file_name);
         snprintf(response, n, "Read %d responses from %s.", count, file_name);
-    }
-    else
-    {
+    } else {
         snprintf(response, n, "Sorry, could not open that file. Please specify the full filename (i.e sample.ini)!");
     }
-    
+
     return 0;
 }
 
@@ -211,18 +210,17 @@ int chatbot_is_question(const char *intent) {
  * Returns:
  *   0 (the chatbot always continues chatting after a question)
  */
-int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be implemented 
-{
+int chatbot_do_question(int inc, char *inv[], char *response, int n) {
+    /* To be implemented */
+
     char *after_question_words[] = {"is", "are"};
     char entity[MAX_RESPONSE] = "";
     int loop = 0;
     int entityPos = 1;
     //Ignore the words in after_question_words, which can vary based on the existance of the word.
-    while(loop < 2)
-    {
+    while (loop < 2) {
         //Compare if they exist. If they do, then entity is in inv[2] onwards.
-        if(compare_token(inv[1],after_question_words[loop]) == 0)
-        {
+        if (compare_token(inv[1], after_question_words[loop]) == 0) {
             entityPos += 1;
         }
         loop++;
@@ -237,13 +235,10 @@ int chatbot_do_question(int inc, char *inv[], char *response, int n) // to be im
     }
     if (knowledge_get(inv[0], entity, response, n)) {
         prompt_user(response, n, "I don't know. %s is %s?", inv[0], entity);
-        if(knowledge_put(inv[0], entity, response) == 0)
-        {
+        if (knowledge_put(inv[0], entity, response) == 0) {
             //Change the buffer to thank the user rather than displaying his inputs.
             snprintf(response, n, "Thank you.");
-        }
-        else
-        {
+        } else {
             snprintf(response, n, ":-(");
         }
     }
@@ -319,19 +314,27 @@ int chatbot_is_save(const char *intent) {
 int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 
     /* to be implemented */
-    FILE *to_save_file;
-    char filename[MAX_INPUT] = "";
+    FILE *to_save_file; // initialise file pointer
+    char *filename = (char *) malloc(MAX_INPUT); // initialise file name as malloc
 
-    strcpy(filename, inv[1]);
+    strcpy(filename, inv[1]); // copy file name
+
+    // if the respond is save as, free the malloc and assign it to the right path directory
+    if (strstr(filename, "as") != NULL) {
+        free(filename);
+        strcpy(filename, inv[2]);
+    }
+
     to_save_file = fopen(filename, "w");
-    if (to_save_file == NULL) {
-        snprintf(response, n, "Could not open file.");
-        return 0;
-    } else {
-        int count = knowledge_write(to_save_file);
+
+    // save the buffer response to a file
+    if (to_save_file) {
+        knowledge_write(to_save_file);
         fclose(to_save_file);
         snprintf(response, n, "My knowledge has been saved to %s.", filename);
-        //snprintf(response, n, "%d lines written.", counter);
+        return 0;
+    } else { // else throw error
+        snprintf(response, n, "Could not open file.");
         return 0;
     }
 }
@@ -357,7 +360,6 @@ int chatbot_is_smalltalk(const char *intent) {
     /* Load the small talk list and append it into the hash_table */
     FILE *fp;
     char file[MAX_INPUT] = "../data/Small_Talk_Questions.txt";
-//    char file[MAX_INPUT] = "D:/SIT/ICT-1002 Programming Fundamentals/C/Assignment/ICT1002_Chat_Bot/data/Small_Talk_Questions.txt";
 
     // Open the file and append the small file question list
     fp = fopen(file, "r");
@@ -410,6 +412,7 @@ int chatbot_do_smalltalk(int inc, char *inv[], char *response, int n) {
     for (int i = 0; i < (int) sizeof(*inv); i++) {
         if (inv[i] == (char *) '\n' || inv[i] == NULL)
             break;
+
         formatString(inv[i]);
         strcat(question, inv[i]);
         strcat(question, " ");
